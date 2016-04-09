@@ -15,6 +15,6 @@ public interface EntityDAO {
 
     void deleteEntityByName(String name);
 
-    List<EntityViewModel> findAllEntitiesViewModel();
+    //List<EntityViewModel> findAllEntitiesViewModel();
 
 }
