@@ -3,24 +3,26 @@ package com.inno.modelview.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
-import com.inno.modelview.dao.impl.CoreEntityDao;
+import com.inno.modelview.dao.ICoreEntityDao;
 import com.inno.modelview.model.CoreEntity;
+import com.inno.modelview.service.ICoreEntityService;
 
 @Service
-public class CoreEntityService {
+public class CoreEntityService implements ICoreEntityService {
 
-	@Autowired
-	private CoreEntityDao coreEntityDao;
+	@Resource
+	private ICoreEntityDao coreEntityDao;
 	
 	public List<CoreEntity> getAllEntities(){
 		return coreEntityDao.getEnties();
 	}
 	
-	public CoreEntity getCoreEntityById(CoreEntity coreEntity){
-		return coreEntityDao.getCoreEntityById(coreEntity);
+	public CoreEntity getCoreEntityById(String id){
+		return coreEntityDao.getCoreEntityById(id);
 	}
 	
 	public List<CoreEntity> getAllParentEntites(CoreEntity coreEntity){

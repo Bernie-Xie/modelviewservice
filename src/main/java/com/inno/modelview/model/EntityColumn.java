@@ -1,16 +1,36 @@
 package com.inno.modelview.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity(name="entityColumn")
+@Entity
 public class EntityColumn {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	private int id;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="owner")
 	private CoreEntity owner;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="foreignKey")
 	private CoreEntity foreignKey;
+	
 	private String description;
+	
 	private String name;
+	
 	private String entityType;
+	
 	public int getId() {
 		return id;
 	}

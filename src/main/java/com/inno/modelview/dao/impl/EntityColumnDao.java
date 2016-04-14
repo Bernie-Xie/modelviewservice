@@ -1,11 +1,12 @@
 package com.inno.modelview.dao.impl;
 
 import java.util.List;
-
+import org.springframework.stereotype.Repository;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.EntityColumn;
 
-public class EntityColumnDao extends BaseDao<EntityColumn>{
+@Repository
+public class EntityColumnDao extends BaseDao<EntityColumn> {
 
 	public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity){
 		return (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where owner = ?",new Object[]{coreEntity.getId()});
@@ -17,7 +18,6 @@ public class EntityColumnDao extends BaseDao<EntityColumn>{
 			return entityColumns.get(0);
 		}
 		return null;
-	}
-	
+	}	
 	
 }
