@@ -12,7 +12,13 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class CoreEntity {
-	
+	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity) {
+		this.entityName = entityName;
+		this.businessValue = businessValue;
+		this.entityBuilder = entityBuilder;
+		this.parentEntity = parentEntity;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")

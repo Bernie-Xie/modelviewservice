@@ -11,7 +11,14 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Step {
-	
+
+	public Step(String shortDescription, String descroption, Topic topic, String screenShot) {
+		this.shortDescription = shortDescription;
+		this.descroption = descroption;
+		this.topic = topic;
+		this.screenShot = screenShot;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")

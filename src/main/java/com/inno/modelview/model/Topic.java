@@ -8,7 +8,12 @@ import javax.persistence.Id;
 
 @Entity
 public class Topic {
-	
+
+	public Topic(String name, String description) {
+		this.description = description;
+		this.name = name;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
@@ -16,7 +21,7 @@ public class Topic {
 	
 	private String description;
 	
-	private String keywards;
+	private String name;
 	
 	public int getId() {
 		return id;
@@ -24,8 +29,8 @@ public class Topic {
 	public String getDescription() {
 		return description;
 	}
-	public String getKeywards() {
-		return keywards;
+	public String getName() {
+		return name;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -33,8 +38,8 @@ public class Topic {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public void setKeywards(String keywards) {
-		this.keywards = keywards;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

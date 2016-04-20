@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.inno.modelview.dao.ICoreEntityDao;
@@ -14,7 +16,8 @@ import com.inno.modelview.service.ICoreEntityService;
 @Service
 public class CoreEntityService implements ICoreEntityService {
 
-	@Resource
+	@Autowired
+	@Qualifier("InMemory")
 	private ICoreEntityDao coreEntityDao;
 	
 	public List<CoreEntity> getAllEntities(){

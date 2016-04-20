@@ -1,11 +1,14 @@
 package com.inno.modelview.dao.impl;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.EntityColumn;
 
 @Repository
+@Component(value="OutMemory")
 public class EntityColumnDao extends BaseDao<EntityColumn> {
 
 	public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity){

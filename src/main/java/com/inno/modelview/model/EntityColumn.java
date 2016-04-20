@@ -12,6 +12,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class EntityColumn {
 
+	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String description, String name, String entityType) {
+		this.owner = owner;
+		this.foreignKey = foreignKey;
+		this.description = description;
+		this.name = name;
+		this.entityType = entityType;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
