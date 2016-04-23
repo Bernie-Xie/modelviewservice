@@ -42,7 +42,7 @@ public class EntityController {
 	public Object getEntityById(@PathVariable String id){
 		return coreEntityService.getCoreEntityById(id);
 	}
-	
+
 	@RequestMapping("/entity/parentes")
 	@ResponseBody
 	public Object getParentEntities(CoreEntity coreEntity){

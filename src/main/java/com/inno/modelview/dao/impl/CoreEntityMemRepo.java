@@ -25,6 +25,11 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
         return _populator.populateEntites();
     }
 
+    @Override
+    public void saveCoreEntity(CoreEntity coreEntity) {
+
+    }
+
     public CoreEntity getCoreEntityById(String id){
 
         return null;

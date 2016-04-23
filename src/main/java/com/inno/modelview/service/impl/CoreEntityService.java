@@ -17,11 +17,15 @@ import com.inno.modelview.service.ICoreEntityService;
 public class CoreEntityService implements ICoreEntityService {
 
 	@Autowired
-	@Qualifier("InMemory")
+	@Qualifier("OutMemory")
 	private ICoreEntityDao coreEntityDao;
 	
 	public List<CoreEntity> getAllEntities(){
 		return coreEntityDao.getEnties();
+	}
+
+	public void saveCoreEntity(CoreEntity coreEntity) {
+		coreEntityDao.saveCoreEntity(coreEntity);
 	}
 	
 	public CoreEntity getCoreEntityById(String id){

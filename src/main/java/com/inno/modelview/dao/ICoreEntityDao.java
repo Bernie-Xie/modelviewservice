@@ -6,6 +6,8 @@ import com.inno.modelview.model.CoreEntity;
 public interface ICoreEntityDao {
 	
 	public List<CoreEntity> getEnties();
+
+	public void saveCoreEntity(CoreEntity coreEntity);
 	
 	public CoreEntity getCoreEntityById(String id);
 	

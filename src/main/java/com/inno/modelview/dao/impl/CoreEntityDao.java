@@ -20,6 +20,10 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 		}
 		return null;
 	}
+
+	public void saveCoreEntity(CoreEntity coreEntity){
+		save(coreEntity);
+	}
 	
 	public CoreEntity getParentEntity(CoreEntity coreEntity){
 		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where parentEntity = ?",new Object[]{coreEntity.getParentEntity().getId()});

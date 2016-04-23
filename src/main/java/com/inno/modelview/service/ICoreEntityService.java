@@ -9,6 +9,8 @@ public interface ICoreEntityService {
 	public List<CoreEntity> getAllEntities();
 	
 	public CoreEntity getCoreEntityById(String id);
+
+	public void saveCoreEntity(CoreEntity coreEntity);
 	
 	public List<CoreEntity> getAllParentEntites(CoreEntity coreEntity);
 
