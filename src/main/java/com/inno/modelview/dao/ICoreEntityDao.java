@@ -10,6 +10,8 @@ public interface ICoreEntityDao {
 	public void saveCoreEntity(CoreEntity coreEntity);
 	
 	public CoreEntity getCoreEntityById(String id);
+
+	public CoreEntity getCoreEntityByName(String name);
 	
 	public CoreEntity getParentEntity(CoreEntity coreEntity);
 

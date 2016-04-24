@@ -1,5 +1,7 @@
 package com.inno.modelview.model;
 
+import org.hibernate.annotations.Columns;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,9 +17,11 @@ public class Topic {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
-	
+
+	@Column(length = 5000)
 	private String description;
-	
+
+	@Column(length = 255)
 	private String name;
 	
 	public int getId() {

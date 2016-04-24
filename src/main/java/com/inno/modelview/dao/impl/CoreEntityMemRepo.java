@@ -21,6 +21,7 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
         }
     }
 
+    @Override
     public List<CoreEntity> getEnties(){
         return _populator.populateEntites();
     }
@@ -30,11 +31,18 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
 
     }
 
+    @Override
     public CoreEntity getCoreEntityById(String id){
 
         return null;
     }
 
+    @Override
+    public CoreEntity getCoreEntityByName(String name) {
+        return null;
+    }
+
+    @Override
     public CoreEntity getParentEntity(CoreEntity coreEntity){
 
         return null;

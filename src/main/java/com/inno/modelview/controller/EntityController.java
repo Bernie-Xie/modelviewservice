@@ -1,35 +1,25 @@
 package com.inno.modelview.controller;
 
 import javax.annotation.Resource;
+
+import com.inno.modelview.dao.impl.DummyData.PopulatorDummyData;
+import com.inno.modelview.model.EntityColumn;
+import com.inno.modelview.service.IEntityColumnService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.service.ICoreEntityService;
+
+import java.util.List;
 
 @Controller
 public class EntityController {
 	
 	@Resource
 	ICoreEntityService coreEntityService;
-	
-/*	
-	@Resource
-	EntityService entityService;
 
-	@RequestMapping(value="/c", method=RequestMethod.POST)  
-    public String createEntity(@ModelAttribute("entity") MEntity entity) { 		
-		entityService.saveEntity(entity);
-		return "sucess";
-    } */
-	
-	/*@RequestMapping(value="/r/{name}", method=RequestMethod.GET)  
-    public @ResponseBody Object queryEntity(@PathVariable String name) { 		
-		MEntity entity = entityService.findEntityByName("");
-		return new EntityViewModel(entity, null);
-    } */
+	@Resource
+	IEntityColumnService entityColumnService;
 
 	@RequestMapping("/entities")
 	@ResponseBody
@@ -41,6 +31,15 @@ public class EntityController {
 	@ResponseBody
 	public Object getEntityById(@PathVariable String id){
 		return coreEntityService.getCoreEntityById(id);
+	}
+
+	@RequestMapping(value="/entity/", method=RequestMethod.POST)
+	@ResponseBody
+	public void saveEntity(@RequestBody CoreEntity coreEntity){
+		//CoreEntity coreEntity = new PopulatorDummyData().populateEntites().get(0);
+		coreEntityService.saveCoreEntity(coreEntity);
+		List<EntityColumn> list = new PopulatorDummyData().populateEntityColumns(coreEntity);
+		list.forEach(e -> entityColumnService.saveEntityColumnsByEntity(e));
 	}
 
 	@RequestMapping("/entity/parentes")

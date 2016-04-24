@@ -5,9 +5,9 @@ import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.Popularity;
 
 /**
- * EntityVM is to exposed to VIEW LAYER
+ * EntitiesVM is to exposed to "All Entities" view layer
  */
-public class EntityVM {
+public class EntitiesVM {
 
     private String entityName;
     private Integer views;

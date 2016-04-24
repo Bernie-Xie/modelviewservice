@@ -8,11 +8,10 @@ import java.util.Set;
 @Table(name="MV_COREENTITY")
 public class CoreEntity {
 
-	public CoreEntity(String entityName, String businessValue, String entityBuilder, Set<EntityColumn> entityColumns, CoreEntity parentEntity) {
+	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity) {
 		this.entityName = entityName;
 		this.businessValue = businessValue;
 		this.entityBuilder = entityBuilder;
-		this.entityColumns = entityColumns;
 		this.parentEntity = parentEntity;
 	}
 
@@ -20,11 +19,14 @@ public class CoreEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
-	
+
+	@Column(length = 255)
 	private String entityName;
-	
+
+	@Column(length = 5000)
 	private String businessValue;
-	
+
+	@Column(length = 5000)
 	private String entityBuilder;
 
 	@OneToMany

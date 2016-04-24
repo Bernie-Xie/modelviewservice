@@ -19,10 +19,12 @@ public class BaseDao<T> extends HibernateDaoSupport implements Dao<T> {
 
 	public void delete(T model) {
 		this.getHibernateTemplate().delete(model);
-	}	
+	}
+
 	@Autowired
-    public void setMySessionFactory(SessionFactory sessionFactory){  
-        super.setSessionFactory(sessionFactory);  
+    public void setMySessionFactory(SessionFactory sessionFactory){
+        super.setSessionFactory(sessionFactory);
+		this.getHibernateTemplate().setCheckWriteOperations(false);
     }
 
 }

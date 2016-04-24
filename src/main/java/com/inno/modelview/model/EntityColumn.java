@@ -34,11 +34,14 @@ public class EntityColumn {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="foreignKey")
 	private CoreEntity foreignKey;
-	
+
+	@Column(length = 255)
 	private String description;
-	
+
+	@Column(length = 255)
 	private String name;
-	
+
+	@Column(length = 255)
 	private String entityType;
 	
 	public int getId() {

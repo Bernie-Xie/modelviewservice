@@ -10,6 +10,8 @@ public interface ICoreEntityService {
 	
 	public CoreEntity getCoreEntityById(String id);
 
+	public CoreEntity getCoreEntityByName(String name);
+
 	public void saveCoreEntity(CoreEntity coreEntity);
 	
 	public List<CoreEntity> getAllParentEntites(CoreEntity coreEntity);

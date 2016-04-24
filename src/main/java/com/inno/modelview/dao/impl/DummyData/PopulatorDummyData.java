@@ -12,21 +12,21 @@ import java.util.Set;
 public class PopulatorDummyData implements IPopulatorDummnyData {
 
     @Override
-    public Set<CoreEntity> populateEntites() {
-        Set<CoreEntity> coreEntities = new HashSet<>();
-        coreEntities.add(new CoreEntity("Claim", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("Policy", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("SC_Job", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("GO", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("AngularJS", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("Stock", populateBizView(), populateEntityBuilder(), null, null));
-        coreEntities.add(new CoreEntity("Python", populateBizView(), populateEntityBuilder(), null, null));
+    public List<CoreEntity> populateEntites() {
+        List<CoreEntity> coreEntities = new ArrayList<>();
+        coreEntities.add(new CoreEntity("Claim", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("Policy", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("SC_Job", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("GO", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("AngularJS", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("Stock", populateBizView(), populateEntityBuilder(), null));
+        coreEntities.add(new CoreEntity("Python", populateBizView(), populateEntityBuilder(), null));
         return coreEntities;
     }
 
     @Override
-    public Set<EntityColumn> populateEntityColumns(CoreEntity owner) {
-        Set<EntityColumn> entityColumns = new HashSet<>();
+    public List<EntityColumn> populateEntityColumns(CoreEntity owner) {
+        List<EntityColumn> entityColumns = new ArrayList<>();
         entityColumns.add(new EntityColumn(owner, null, "Claim", "Claim", "VARCHAR"));
         entityColumns.add(new EntityColumn(owner, null, "AAA", "AAA", "VARCHAR"));
         entityColumns.add(new EntityColumn(owner, null, "Policy", "Policy", "Policy"));

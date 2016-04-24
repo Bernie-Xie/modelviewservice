@@ -17,7 +17,8 @@ public class Step {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
-	
+
+
 	private String shortDescription;
 	
 	private String descroption;
