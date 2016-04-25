@@ -9,6 +9,12 @@ import com.inno.modelview.model.Popularity;
  */
 public class EntityVM {
 
+    public EntityVM(CoreEntity entity, Popularity popularity, Contributor contributor) {
+        this.entity = entity;
+        this.popularity = popularity;
+        this.contributor = contributor;
+    }
+
     private String entityName;
     private Integer views;
     private Integer likes;

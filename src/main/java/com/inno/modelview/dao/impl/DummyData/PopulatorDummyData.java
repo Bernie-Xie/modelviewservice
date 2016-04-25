@@ -1,8 +1,11 @@
 package com.inno.modelview.dao.impl.DummyData;
 
 
+import com.inno.modelview.model.Contributor;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.EntityColumn;
+import com.inno.modelview.model.Popularity;
+import com.inno.modelview.model.viewmodel.EntityVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +13,38 @@ import java.util.List;
 public class PopulatorDummyData implements IPopulatorDummnyData {
 
     @Override
-    public List<CoreEntity> populateEntites() {
-        List<CoreEntity> coreEntities = new ArrayList<>();
-        coreEntities.add(new CoreEntity("Claim", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("Policy", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("SC_Job", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("GO", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("AngularJS", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("Stock", populateBizView(), populateEntityBuilder(), null));
-        coreEntities.add(new CoreEntity("Python", populateBizView(), populateEntityBuilder(), null));
-        return coreEntities;
+    public List<EntityVM> populateEntites() {
+        List<EntityVM> entityVMs = new ArrayList<>();
+        entityVMs.add(new EntityVM(
+                new CoreEntity("Claim", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(200, 100),
+                new Contributor("Will Hu", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("Policy", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(189, 89),
+                new Contributor("Joseph Jung", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("SC_Job", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(177, 56),
+                new Contributor("Terry Jung", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("Go", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(123, 11),
+                new Contributor("Maven Part", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("Python", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(189, 90),
+                new Contributor("Optimus Prime", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("AngularJS", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(60, 1),
+                new Contributor("Apache", null)));
+        entityVMs.add(new EntityVM(
+                new CoreEntity("Promise", populateBizView(), populateEntityBuilder(), null),
+                new Popularity(50, 0),
+                new Contributor("Jiang ze min", "Hu jin tao")));
+
+        return entityVMs;
     }
 
     @Override

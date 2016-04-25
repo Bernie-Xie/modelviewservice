@@ -40,15 +40,11 @@ public class EntityController {
 
 	/**
 	 * The response is to mimic the POST.
-	 * TODO: Will be update soon
 	 */
-	@RequestMapping(value="/entity/", method=RequestMethod.POST)
+	@RequestMapping(value="/entity", method=RequestMethod.POST)
 	@ResponseBody
-	public void saveEntity(){
-		CoreEntity coreEntity = new PopulatorDummyData().populateEntites().get(0);
+	public void saveEntity(@RequestBody CoreEntity coreEntity){
 		coreEntityService.saveCoreEntity(coreEntity);
-		List<EntityColumn> list = new PopulatorDummyData().populateEntityColumns(coreEntity);
-		list.forEach(e -> entityColumnService.saveEntityColumnsByEntity(e));
 	}
 
 
@@ -65,6 +61,17 @@ public class EntityController {
 	@ResponseBody
 	public Object getEntityColumnByEntityName(@PathVariable Integer entityId){
 		return entityColumnService.getEntityColumnsByEntityId(entityId);
+	}
+
+
+	/**
+	 * The response is to POST the entity columns.
+	 * TODO: Will be update soon
+	 */
+	@RequestMapping(value="/entitycolumn", method=RequestMethod.POST)
+	@ResponseBody
+	public void saveEntityColumn(@RequestBody List<EntityColumn> entityColumns){
+		entityColumns.forEach(e -> entityColumnService.saveEntityColumnsByEntity(e));
 	}
 	
 }
