@@ -9,7 +9,7 @@ jetty:run
 ```
 
 API:
-----------
+----
 ```html
 GET http://localhost:8085/entity/{entityName}
 ```
