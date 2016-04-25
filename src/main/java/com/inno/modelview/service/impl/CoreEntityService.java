@@ -3,10 +3,7 @@ package com.inno.modelview.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import com.inno.modelview.dao.impl.EntityColumnDao;
-import com.inno.modelview.model.viewmodel.EntityVM;
+import com.inno.modelview.model.DTO.EntityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,7 +20,7 @@ public class CoreEntityService implements ICoreEntityService {
 	@Qualifier("OutMemory")
 	private ICoreEntityDao coreEntityDao;
 
-	public List<EntityVM> getAllEntities(){
+	public List<EntityDTO> getAllEntities(){
 		return coreEntityDao.getEnties();
 	}
 
@@ -32,7 +29,7 @@ public class CoreEntityService implements ICoreEntityService {
 		coreEntityDao.saveCoreEntity(coreEntity);
 	}
 	
-	public CoreEntity getCoreEntityById(String id){
+	public CoreEntity getCoreEntityById(int id){
 		return coreEntityDao.getCoreEntityById(id);
 	}
 

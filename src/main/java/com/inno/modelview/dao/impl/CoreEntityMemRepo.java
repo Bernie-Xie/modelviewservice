@@ -3,7 +3,7 @@ package com.inno.modelview.dao.impl;
 import java.util.List;
 
 import com.inno.modelview.dao.impl.DummyData.PopulatorDummyData;
-import com.inno.modelview.model.viewmodel.EntityVM;
+import com.inno.modelview.model.DTO.EntityDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +23,7 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
     }
 
     @Override
-    public List<EntityVM> getEnties(){
+    public List<EntityDTO> getEnties(){
         return _populator.populateEntites();
     }
 
@@ -33,8 +33,7 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
     }
 
     @Override
-    public CoreEntity getCoreEntityById(String id){
-
+    public CoreEntity getCoreEntityById(int id) {
         return null;
     }
 

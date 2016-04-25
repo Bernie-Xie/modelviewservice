@@ -3,13 +3,13 @@ package com.inno.modelview.service;
 import java.util.List;
 
 import com.inno.modelview.model.CoreEntity;
-import com.inno.modelview.model.viewmodel.EntityVM;
+import com.inno.modelview.model.DTO.EntityDTO;
 
 public interface ICoreEntityService {
 	
-	public List<EntityVM> getAllEntities();
+	public List<EntityDTO> getAllEntities();
 	
-	public CoreEntity getCoreEntityById(String id);
+	public CoreEntity getCoreEntityById(int id);
 
 	public CoreEntity getCoreEntityByName(String name);
 

@@ -3,6 +3,8 @@ package com.inno.modelview.controller;
 import javax.annotation.Resource;
 
 import com.inno.modelview.dao.impl.DummyData.PopulatorDummyData;
+import com.inno.modelview.model.DTO.EntityColumnDTO;
+import com.inno.modelview.model.DTO.EntityDTO;
 import com.inno.modelview.model.EntityColumn;
 import com.inno.modelview.service.IEntityColumnService;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.service.ICoreEntityService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,19 +62,31 @@ public class EntityController {
 	 */
 	@RequestMapping(value="/entitycolumn/{entityId}", method=RequestMethod.GET)
 	@ResponseBody
-	public Object getEntityColumnByEntityName(@PathVariable Integer entityId){
-		return entityColumnService.getEntityColumnsByEntityId(entityId);
+	public Object getEntityColumnsByEntityId(@PathVariable Integer entityId){
+		List<EntityColumn> entityColumns =  entityColumnService.getEntityColumnsByEntityId(entityId);
+		List<EntityColumnDTO> entityColumnDTOs = new ArrayList<>();
+		entityColumns.forEach(e -> entityColumnDTOs.add(new EntityColumnDTO(e)));
+		return entityColumnDTOs;
 	}
 
 
 	/**
 	 * The response is to POST the entity columns.
-	 * TODO: Will be update soon
 	 */
 	@RequestMapping(value="/entitycolumn", method=RequestMethod.POST)
 	@ResponseBody
-	public void saveEntityColumn(@RequestBody List<EntityColumn> entityColumns){
-		entityColumns.forEach(e -> entityColumnService.saveEntityColumnsByEntity(e));
+	public void saveEntityColumn(@RequestBody List<EntityColumnDTO> entityDTOs){
+		if (entityDTOs.size() > 0) {
+			int coreEntityId = entityDTOs.get(0).getCoreEntity_Id();
+			CoreEntity coreEntity = coreEntityService.getCoreEntityById(coreEntityId);
+			entityDTOs.forEach(e -> {
+				EntityColumn entityColumn = new EntityColumn(coreEntity,
+						e.getForeignKey()==null? null:coreEntityService.getCoreEntityById(e.getForeignKey()),
+						e.getDescription(),
+						e.getName(),
+						e.getEntityType());
+				entityColumnService.saveEntityColumnsByEntity(entityColumn);
+			});
+		}
 	}
-	
 }

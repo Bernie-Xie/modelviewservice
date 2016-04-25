@@ -3,7 +3,7 @@ package com.inno.modelview.dao.impl;
 import java.util.List;
 
 import com.inno.modelview.model.EntityColumn;
-import com.inno.modelview.model.viewmodel.EntityVM;
+import com.inno.modelview.model.DTO.EntityDTO;
 import com.inno.modelview.service.IEntityColumnService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -20,11 +20,11 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	@Resource
 	IEntityColumnService entityColumnService;
 
-	public List<EntityVM> getEnties(){
-		return (List<EntityVM>) this.getHibernateTemplate().find("FROM CoreEntity");
+	public List<EntityDTO> getEnties(){
+		return (List<EntityDTO>) this.getHibernateTemplate().find("FROM CoreEntity");
 	}
 	
-	public CoreEntity getCoreEntityById(String id){
+	public CoreEntity getCoreEntityById(int id){
 		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where id = ?",new Object[]{new Integer(id)});
 		if(coreEntities.size() > 0){
 			CoreEntity returnCoreEntity = coreEntities.get(0);

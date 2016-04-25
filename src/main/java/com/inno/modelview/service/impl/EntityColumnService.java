@@ -24,8 +24,8 @@ public class EntityColumnService implements IEntityColumnService {
 		return entityColumnDao.getEntityColumnsByEntity(coreEntity);
 	}
 
-	public List<EntityColumn> getEntityColumnsByEntityId(Integer id){
-		return entityColumnDao.getEntityColumnsByEntityId(id);
+	public List<EntityColumn> getEntityColumnsByEntityId(Integer coreEntityId){
+		return entityColumnDao.getEntityColumnsByEntityId(coreEntityId);
 	}
 
 	@Transactional(readOnly = false)
