@@ -12,15 +12,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 @Service
 public class EntityColumnService implements IEntityColumnService {
 
-	@Autowired
-	@Qualifier("OutMemoryEntityColumn")
+	@Resource
 	private IEntityColumnDao entityColumnDao;
 
 	public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity){
 		return entityColumnDao.getEntityColumnsByEntity(coreEntity);
+	}
+
+	public List<EntityColumn> getEntityColumnsByEntityId(Integer id){
+		return entityColumnDao.getEntityColumnsByEntityId(id);
 	}
 
 	@Transactional(readOnly = false)

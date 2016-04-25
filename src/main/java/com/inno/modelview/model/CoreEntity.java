@@ -1,12 +1,16 @@
 package com.inno.modelview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="MV_COREENTITY")
 public class CoreEntity {
+
+	public CoreEntity() {}
 
 	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity) {
 		this.entityName = entityName;
@@ -15,6 +19,7 @@ public class CoreEntity {
 		this.parentEntity = parentEntity;
 	}
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
@@ -31,15 +36,19 @@ public class CoreEntity {
 
 	@OneToMany
 	@JoinColumn(name="coreentity_id")
-	private Set<EntityColumn> entityColumns = new HashSet<>();
+	private List<EntityColumn> entityColumns = new ArrayList<>();
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="parentEntity")
 	private CoreEntity parentEntity;
 
 	@OneToMany(mappedBy="CoreEntity",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public Set<EntityColumn> getEntityColumns() {
+	public List<EntityColumn> getEntityColumns() {
 		return entityColumns;
+	}
+
+	public void setEntityColumns(List<EntityColumn> entityColumns) {
+		this.entityColumns = entityColumns;
 	}
 
 	public int getId() {

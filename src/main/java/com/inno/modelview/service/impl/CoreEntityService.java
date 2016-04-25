@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.inno.modelview.dao.impl.EntityColumnDao;
+import com.inno.modelview.model.viewmodel.EntityVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class CoreEntityService implements ICoreEntityService {
 	@Qualifier("OutMemory")
 	private ICoreEntityDao coreEntityDao;
 
-	public List<CoreEntity> getAllEntities(){
+	public List<EntityVM> getAllEntities(){
 		return coreEntityDao.getEnties();
 	}
 

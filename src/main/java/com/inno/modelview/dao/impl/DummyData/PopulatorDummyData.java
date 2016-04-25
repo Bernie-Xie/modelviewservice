@@ -5,9 +5,7 @@ import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.EntityColumn;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class PopulatorDummyData implements IPopulatorDummnyData {
 

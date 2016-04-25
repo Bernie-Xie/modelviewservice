@@ -17,37 +17,54 @@ public class EntityController {
 	
 	@Resource
 	ICoreEntityService coreEntityService;
-
 	@Resource
 	IEntityColumnService entityColumnService;
 
+	/**
+	 * The response is get available entities.
+	 */
 	@RequestMapping("/entities")
 	@ResponseBody
 	public Object getEntities(){
 		return coreEntityService.getAllEntities();
 	}
-	
-	@RequestMapping(value="/entity/{id}", method=RequestMethod.GET)
+
+	/**
+	 * The response is get entity by its name
+	 */
+	@RequestMapping(value="/entity/{name}", method=RequestMethod.GET)
 	@ResponseBody
-	public Object getEntityById(@PathVariable String id){
-		return coreEntityService.getCoreEntityById(id);
+	public Object getEntityByName(@PathVariable String name){
+		return coreEntityService.getCoreEntityByName(name);
 	}
 
+	/**
+	 * The response is to mimic the POST.
+	 * TODO: Will be update soon
+	 */
 	@RequestMapping(value="/entity/", method=RequestMethod.POST)
 	@ResponseBody
-	public void saveEntity(@RequestBody CoreEntity coreEntity){
-		//CoreEntity coreEntity = new PopulatorDummyData().populateEntites().get(0);
+	public void saveEntity(){
+		CoreEntity coreEntity = new PopulatorDummyData().populateEntites().get(0);
 		coreEntityService.saveCoreEntity(coreEntity);
 		List<EntityColumn> list = new PopulatorDummyData().populateEntityColumns(coreEntity);
 		list.forEach(e -> entityColumnService.saveEntityColumnsByEntity(e));
 	}
 
+
 	@RequestMapping("/entity/parentes")
 	@ResponseBody
 	public Object getParentEntities(CoreEntity coreEntity){
 		return coreEntityService.getAllParentEntites(coreEntity);
-	}	
-	
-	
+	}
+
+	/**
+	 * The response is to return EntityColumns (List) in terms of the EntityID
+	 */
+	@RequestMapping(value="/entitycolumn/{entityId}", method=RequestMethod.GET)
+	@ResponseBody
+	public Object getEntityColumnByEntityName(@PathVariable Integer entityId){
+		return entityColumnService.getEntityColumnsByEntityId(entityId);
+	}
 	
 }

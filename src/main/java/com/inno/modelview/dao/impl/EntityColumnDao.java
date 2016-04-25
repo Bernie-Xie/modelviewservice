@@ -9,12 +9,18 @@ import com.inno.modelview.dao.IEntityColumnDao;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.model.EntityColumn;
 
+import javax.swing.text.html.parser.Entity;
+
 @Repository
-@Component(value="OutMemoryEntityColumn")
 public class EntityColumnDao extends BaseDao<EntityColumn> implements IEntityColumnDao {
 
 	public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity){
-		return (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where owner = ?",new Object[]{coreEntity.getId()});
+		return (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?",new Object[]{coreEntity.getId()});
+	}
+
+	public List<EntityColumn> getEntityColumnsByEntityId(Integer id){
+		List<EntityColumn> list = (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?", id);
+		return list;
 	}
 
 	public void saveEntityColumnsByEntity(EntityColumn entityColumn) {

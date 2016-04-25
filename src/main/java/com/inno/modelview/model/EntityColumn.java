@@ -1,5 +1,7 @@
 package com.inno.modelview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 @Table(name="MV_ENTITYCOLUMN")
 public class EntityColumn {
 
+	public EntityColumn() {}
+
 	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String description, String name, String entityType) {
 		this.owner = owner;
 		this.foreignKey = foreignKey;
@@ -22,11 +26,13 @@ public class EntityColumn {
 		this.entityType = entityType;
 	}
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
-	
+
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="COREENTITY_ID", nullable = false)
 	private CoreEntity owner;

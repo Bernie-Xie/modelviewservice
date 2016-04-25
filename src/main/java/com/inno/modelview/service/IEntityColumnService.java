@@ -9,5 +9,7 @@ public interface IEntityColumnService {
 
     public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
 
+    public List<EntityColumn> getEntityColumnsByEntityId(Integer id);
+
     public void saveEntityColumnsByEntity(EntityColumn entityColumn);
 }

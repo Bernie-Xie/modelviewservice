@@ -8,6 +8,8 @@ import java.util.List;
 public interface IEntityColumnDao {
     public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
 
+    public List<EntityColumn> getEntityColumnsByEntityId(Integer id);
+
     public void saveEntityColumnsByEntity(EntityColumn entityColumn);
 
     public EntityColumn getEntityColumnById(EntityColumn entityColumn);
