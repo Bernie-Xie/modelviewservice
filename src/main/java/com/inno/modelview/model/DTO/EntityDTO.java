@@ -9,10 +9,13 @@ import com.inno.modelview.model.Popularity;
  */
 public class EntityDTO {
 
-    public EntityDTO(CoreEntity entity, Popularity popularity, Contributor contributor) {
-        this.entity = entity;
-        this.popularity = popularity;
-        this.contributor = contributor;
+    public EntityDTO() { }
+
+    public EntityDTO(String entityName, Integer views, Integer likes, String createUserName) {
+        this.entityName = entityName;
+        this.views = views;
+        this.likes = likes;
+        this.createUserName = createUserName;
     }
 
     private String entityName;
@@ -20,23 +23,35 @@ public class EntityDTO {
     private Integer likes;
     private String createUserName;
 
-    private CoreEntity entity;
-    private Popularity popularity;
-    private Contributor contributor;
-
     public String getEntityName() {
-        return this.entity.getEntityName();
+        return entityName;
     }
 
-    public String getCreateUserName() {
-        return this.contributor.getCreateUserName();
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
     public Integer getViews() {
-        return this.popularity.getViews();
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
     }
 
     public Integer getLikes() {
-        return this.popularity.getLikes();
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
     }
 }

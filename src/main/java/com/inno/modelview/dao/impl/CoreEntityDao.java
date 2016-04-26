@@ -1,5 +1,6 @@
 package com.inno.modelview.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.inno.modelview.model.EntityColumn;
@@ -20,8 +21,17 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	@Resource
 	IEntityColumnService entityColumnService;
 
+	//TODO will update with Popularity and Contributor
 	public List<EntityDTO> getEnties(){
-		return (List<EntityDTO>) this.getHibernateTemplate().find("FROM CoreEntity");
+		List<EntityDTO> entityDTOs = new ArrayList<>();
+		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity");
+		coreEntities.forEach(e->entityDTOs.add(new EntityDTO(
+				e.getEntityName(),
+				0,
+				0,
+				"Will"
+		)));
+		return entityDTOs;
 	}
 	
 	public CoreEntity getCoreEntityById(int id){

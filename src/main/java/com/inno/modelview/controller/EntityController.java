@@ -1,26 +1,26 @@
 package com.inno.modelview.controller;
 
-import javax.annotation.Resource;
-
-import com.inno.modelview.dao.impl.DummyData.PopulatorDummyData;
 import com.inno.modelview.model.DTO.EntityColumnDTO;
 import com.inno.modelview.model.DTO.EntityDTO;
 import com.inno.modelview.model.EntityColumn;
 import com.inno.modelview.service.IEntityColumnService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.service.ICoreEntityService;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
 public class EntityController {
 	
-	@Resource
+	@Autowired
 	ICoreEntityService coreEntityService;
-	@Resource
+	@Autowired
 	IEntityColumnService entityColumnService;
 
 	/**
@@ -28,8 +28,12 @@ public class EntityController {
 	 */
 	@RequestMapping("/entities")
 	@ResponseBody
-	public Object getEntities(){
-		return coreEntityService.getAllEntities();
+	public ResponseEntity<List<EntityDTO>> getEntities(){
+		List<EntityDTO> entityDTOs = coreEntityService.getAllEntities();
+		if (entityDTOs.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(entityDTOs, HttpStatus.OK);
 	}
 
 	/**
@@ -37,8 +41,12 @@ public class EntityController {
 	 */
 	@RequestMapping(value="/entity/{name}", method=RequestMethod.GET)
 	@ResponseBody
-	public Object getEntityByName(@PathVariable String name){
-		return coreEntityService.getCoreEntityByName(name);
+	public ResponseEntity<CoreEntity> getEntityByName(@PathVariable String name){
+		CoreEntity coreEntity = coreEntityService.getCoreEntityByName(name);
+		if (coreEntity==null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(coreEntity, HttpStatus.OK);
 	}
 
 	/**
@@ -46,15 +54,26 @@ public class EntityController {
 	 */
 	@RequestMapping(value="/entity", method=RequestMethod.POST)
 	@ResponseBody
-	public void saveEntity(@RequestBody CoreEntity coreEntity){
-		coreEntityService.saveCoreEntity(coreEntity);
+	public ResponseEntity saveEntity(@RequestBody CoreEntity coreEntity){
+		try {
+			coreEntityService.saveCoreEntity(coreEntity);
+		} catch (Exception ex) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-
+	/**
+	 * The response is to return parent core entity (List) in terms of coreEntity
+	 */
 	@RequestMapping("/entity/parentes")
 	@ResponseBody
-	public Object getParentEntities(CoreEntity coreEntity){
-		return coreEntityService.getAllParentEntites(coreEntity);
+	public ResponseEntity<List<CoreEntity>> getParentEntities(CoreEntity coreEntity){
+		List<CoreEntity> coreEntities = coreEntityService.getAllParentEntites(coreEntity);
+		if (coreEntities.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(coreEntities, HttpStatus.OK);
 	}
 
 	/**
@@ -62,31 +81,39 @@ public class EntityController {
 	 */
 	@RequestMapping(value="/entitycolumn/{entityId}", method=RequestMethod.GET)
 	@ResponseBody
-	public Object getEntityColumnsByEntityId(@PathVariable Integer entityId){
+	public ResponseEntity<List<EntityColumn>> getEntityColumnsByEntityId(@PathVariable Integer entityId){
 		List<EntityColumn> entityColumns =  entityColumnService.getEntityColumnsByEntityId(entityId);
-		List<EntityColumnDTO> entityColumnDTOs = new ArrayList<>();
-		entityColumns.forEach(e -> entityColumnDTOs.add(new EntityColumnDTO(e)));
-		return entityColumnDTOs;
+		if (entityColumns.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(entityColumns, HttpStatus.OK);
 	}
-
 
 	/**
 	 * The response is to POST the entity columns.
 	 */
 	@RequestMapping(value="/entitycolumn", method=RequestMethod.POST)
 	@ResponseBody
-	public void saveEntityColumn(@RequestBody List<EntityColumnDTO> entityDTOs){
-		if (entityDTOs.size() > 0) {
-			int coreEntityId = entityDTOs.get(0).getCoreEntity_Id();
-			CoreEntity coreEntity = coreEntityService.getCoreEntityById(coreEntityId);
-			entityDTOs.forEach(e -> {
-				EntityColumn entityColumn = new EntityColumn(coreEntity,
-						e.getForeignKey()==null? null:coreEntityService.getCoreEntityById(e.getForeignKey()),
-						e.getDescription(),
-						e.getName(),
-						e.getEntityType());
-				entityColumnService.saveEntityColumnsByEntity(entityColumn);
-			});
+	public ResponseEntity saveEntityColumn(@RequestBody List<EntityColumnDTO> entityDTOs){
+		if (entityDTOs.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		try {
+			if (entityDTOs.size() > 0) {
+				int coreEntityId = entityDTOs.get(0).getCoreEntity_Id();
+				CoreEntity coreEntity = coreEntityService.getCoreEntityById(coreEntityId);
+				entityDTOs.forEach(e -> {
+					EntityColumn entityColumn = new EntityColumn(coreEntity,
+							e.getForeignKey_Id() == null ? null : coreEntityService.getCoreEntityById(e.getForeignKey_Id()),
+							e.getDescription(),
+							e.getName(),
+							e.getEntityType());
+					entityColumnService.saveEntityColumnsByEntity(entityColumn);
+				});
+			}
+		} catch (Exception ex) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

@@ -15,35 +15,13 @@ public class PopulatorDummyData implements IPopulatorDummnyData {
     @Override
     public List<EntityDTO> populateEntites() {
         List<EntityDTO> entityDTOs = new ArrayList<>();
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("Claim", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(200, 100),
-                new Contributor("Will Hu", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("Policy", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(189, 89),
-                new Contributor("Joseph Jung", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("SC_Job", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(177, 56),
-                new Contributor("Terry Jung", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("Go", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(123, 11),
-                new Contributor("Maven Part", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("Python", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(189, 90),
-                new Contributor("Optimus Prime", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("AngularJS", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(60, 1),
-                new Contributor("Apache", null)));
-        entityDTOs.add(new EntityDTO(
-                new CoreEntity("Promise", populateBizView(), populateEntityBuilder(), null),
-                new Popularity(50, 0),
-                new Contributor("Jiang ze min", "Hu jin tao")));
-
+        entityDTOs.add(new EntityDTO("Claim", 200, 100, "Will Hu"));
+        entityDTOs.add(new EntityDTO("Policy", 200, 100, "Joseph"));
+        entityDTOs.add(new EntityDTO("SC_Job", 200, 100, "Will Hu"));
+        entityDTOs.add(new EntityDTO("Go", 200, 100, "Mark Ma"));
+        entityDTOs.add(new EntityDTO("Python", 200, 100, "Bernie Xie"));
+        entityDTOs.add(new EntityDTO("Vary", 198, 100, "Will Hu"));
+        entityDTOs.add(new EntityDTO("Game", 100, 100, "Will Hu"));
         return entityDTOs;
     }
 
