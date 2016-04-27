@@ -8,9 +8,9 @@ Project set up in Intellij idea, Jetty can be used to start the service by runni
 jetty:run
 ```
 
-API:
-----
-*GET*
+API Overview:
+---------------
+**GET**    
 ```html
 GET http://localhost:8085/entities        
 GET http://localhost:8085/entity/{entityName}         
@@ -19,14 +19,17 @@ GET http://localhost:8085/entitycolumn/{entityId}
 
 ```
 
-*POST*
+**POST**   
 ```html
 POST http://localhost:8085/entity
 POST http://localhost:8085/entitycolumn
+POST http://localhost:8085/popularity
+POST http://localhost:8085/contributor
 ```
 
-*Request*
-* POST entity
+API Payload
+----------------
+*POST entity*
 ```json
 {
   "entityName": "SC_Job",
@@ -36,7 +39,7 @@ POST http://localhost:8085/entitycolumn
 }
 ```
 
-* POST entitycolumn
+*POST entitycolumn*   
 ```json
 [
   {
@@ -54,4 +57,24 @@ POST http://localhost:8085/entitycolumn
     "foreignKey": null
   }
 ]
+```
+
+*POST popularity*   
+```json
+{
+  "views": 200,
+  "likes": 28,
+  "modelType": 0,
+  "modelPublicId": 1
+}
+```
+
+*POST contributor*   
+```json
+{
+  "createUserName": "Bernie Xie",
+  "lastModifiedUserName": "Will Hu",
+  "modelType": 0,
+  "modelPublicId": 1
+}
 ```
