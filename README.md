@@ -78,3 +78,47 @@ API Payload
   "modelPublicId": 1
 }
 ```
+
+Table schema
+-------------
+*MV_COREENTITY*    
+
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+--------------------|---------|----|----|------|----------|----------|--------
+ID                  |INTEGER  |0   |10  |10    |GENERATED&|NULL      |NO      
+BUSINESSVALUE       |VARCHAR  |NULL|NULL|5000  |NULL      |10000     |YES     
+ENTITYBUILDER       |VARCHAR  |NULL|NULL|5000  |NULL      |10000     |YES     
+ENTITYNAME          |VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+PARENTENTITY        |INTEGER  |0   |10  |10    |NULL      |NULL      |YES 
+
+*MV_ENTITYCOLUMN*     
+
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+--------------------|---------|----|----|------|----------|----------|--------
+ID                  |INTEGER  |0   |10  |10    |GENERATED&|NULL      |NO      
+DESCRIPTION         |VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+ENTITYTYPE          |VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+NAME                |VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+FOREIGNKEY          |INTEGER  |0   |10  |10    |NULL      |NULL      |YES     
+COREENTITY_ID       |INTEGER  |0   |10  |10    |NULL      |NULL      |NO  
+
+
+*MV_CONTRIBUTOR*     
+
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+--------------------|---------|----|----|------|----------|----------|--------
+ID                  |INTEGER  |0   |10  |10    |GENERATED&|NULL      |NO      
+CREATEUSERNAME      |VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+LASTMODIFIEDUSERNAME|VARCHAR  |NULL|NULL|255   |NULL      |510       |YES     
+MODELPUBLICID       |INTEGER  |0   |10  |10    |NULL      |NULL      |NO      
+MODELTYPE           |INTEGER  |0   |10  |10    |NULL      |NULL      |YES 
+
+*MV_POPULARITY*     
+
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+--------------------|---------|----|----|------|----------|----------|--------
+ID                  |INTEGER  |0   |10  |10    |GENERATED&|NULL      |NO      
+MODELPUBLICID       |INTEGER  |0   |10  |10    |NULL      |NULL      |NO      
+MODELTYPE           |INTEGER  |0   |10  |10    |NULL      |NULL      |YES     
+LIKES               |INTEGER  |0   |10  |10    |NULL      |NULL      |YES     
+VIEWS               |INTEGER  |0   |10  |10    |NULL      |NULL      |YES   
