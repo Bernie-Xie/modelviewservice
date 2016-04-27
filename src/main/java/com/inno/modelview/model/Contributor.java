@@ -6,9 +6,13 @@ import javax.persistence.*;
 @Table(name="MV_CONTRIBUTOR")
 public class Contributor {
 
-    public Contributor(String createUserName, String lastModifiedUserName) {
-        CreateUserName = createUserName;
-        LastModifiedUserName = lastModifiedUserName;
+    public Contributor() {}
+
+    public Contributor(String createUserName, String lastModifiedUserName, ModelType modelType, int modelPublicId) {
+        this.createUserName = createUserName;
+        this.lastModifiedUserName = lastModifiedUserName;
+        this.modelType = modelType;
+        this.modelPublicId = modelPublicId;
     }
 
     @Id
@@ -16,26 +20,54 @@ public class Contributor {
     @Column(name="ID")
     private int id;
 
-    private String CreateUserName;
-    private String LastModifiedUserName;
+    private String createUserName;
+    private String lastModifiedUserName;
 
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="COREENTITY_ID", nullable = false)
-    private CoreEntity owner;
+    @Column(nullable = false)
+    private ModelType modelType;
+
+    @Column(nullable = false)
+    private int modelPublicId;
 
     public String getCreateUserName() {
-        return CreateUserName;
+        return createUserName;
     }
 
     public void setCreateUserName(String createUserName) {
-        CreateUserName = createUserName;
+        this.createUserName = createUserName;
     }
 
     public String getLastModifiedUserName() {
-        return LastModifiedUserName;
+        return lastModifiedUserName;
     }
 
     public void setLastModifiedUserName(String lastModifiedUserName) {
-        LastModifiedUserName = lastModifiedUserName;
+        this.lastModifiedUserName = lastModifiedUserName;
+    }
+
+    public ModelType getModelType() {
+        return modelType;
+    }
+
+    public void setModelType(ModelType modelType) {
+        this.modelType = modelType;
+    }
+
+    public int getModelPublicId() {
+        return modelPublicId;
+    }
+
+    public void setModelPublicId(int modelPublicId) {
+        this.modelPublicId = modelPublicId;
+    }
+
+    @Override
+    public String toString() {
+        return "Contributor{" +
+                ", createUserName='" + createUserName + '\'' +
+                ", lastModifiedUserName='" + lastModifiedUserName + '\'' +
+                ", modelType=" + modelType +
+                ", modelPublicId=" + modelPublicId +
+                '}';
     }
 }

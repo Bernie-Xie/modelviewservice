@@ -19,6 +19,10 @@ public class BaseDao<T> extends HibernateDaoSupport implements Dao<T> {
 		return (Integer)id;
 	}
 
+	public void saveOrUpdate(T model) {
+		this.getHibernateTemplate().saveOrUpdate(model);
+	}
+
 	public void update(T model) {
 		this.getHibernateTemplate().update(model);
 		

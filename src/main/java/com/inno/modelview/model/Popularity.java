@@ -6,12 +6,14 @@ import javax.persistence.*;
 @Table(name="MV_POPULARITY")
 public class Popularity {
 
-    public Popularity(Integer views, Integer likes) {
+    public Popularity() {}
+
+    public Popularity(Integer views, Integer likes, ModelType modelType, int modelPublicId) {
         this.views = views;
         this.likes = likes;
+        this.modelType = modelType;
+        this.modelPublicId = modelPublicId;
     }
-
-    public Popularity() {}
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,9 +23,11 @@ public class Popularity {
     private Integer views;
     private Integer likes;
 
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="COREENTITY_ID", nullable = false)
-    private CoreEntity owner;
+    @Column(nullable = false)
+    private ModelType modelType;
+
+    @Column(nullable = false)
+    private int modelPublicId;
 
     public Integer getViews() {
         return views;
@@ -41,11 +45,29 @@ public class Popularity {
         this.likes = likes;
     }
 
+    public ModelType getModelType() {
+        return modelType;
+    }
+
+    public void setModelType(ModelType modelType) {
+        this.modelType = modelType;
+    }
+
+    public int getModelPublicId() {
+        return modelPublicId;
+    }
+
+    public void setModelPublicId(int modelPublicId) {
+        this.modelPublicId = modelPublicId;
+    }
+
     @Override
     public String toString() {
         return "Popularity{" +
-                "views=" + views +
+                ", views=" + views +
                 ", likes=" + likes +
+                ", modelType=" + modelType +
+                ", modelPublicId=" + modelPublicId +
                 '}';
     }
 }
