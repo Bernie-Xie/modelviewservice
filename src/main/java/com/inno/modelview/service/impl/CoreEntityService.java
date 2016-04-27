@@ -25,8 +25,8 @@ public class CoreEntityService implements ICoreEntityService {
 	}
 
 	@Transactional(readOnly = false)
-	public void saveCoreEntity(CoreEntity coreEntity) {
-		coreEntityDao.saveCoreEntity(coreEntity);
+	public Integer saveCoreEntity(CoreEntity coreEntity) {
+		return coreEntityDao.saveCoreEntity(coreEntity);
 	}
 	
 	public CoreEntity getCoreEntityById(int id){

@@ -7,14 +7,14 @@ import com.inno.modelview.model.DTO.EntityDTO;
 
 public interface ICoreEntityService {
 	
-	public List<EntityDTO> getAllEntities();
+	List<EntityDTO> getAllEntities();
 	
-	public CoreEntity getCoreEntityById(int id);
+	CoreEntity getCoreEntityById(int id);
 
-	public CoreEntity getCoreEntityByName(String name);
+	CoreEntity getCoreEntityByName(String name);
 
-	public void saveCoreEntity(CoreEntity coreEntity);
+	Integer saveCoreEntity(CoreEntity coreEntity);
 	
-	public List<CoreEntity> getAllParentEntites(CoreEntity coreEntity);
+	List<CoreEntity> getAllParentEntites(CoreEntity coreEntity);
 
 }

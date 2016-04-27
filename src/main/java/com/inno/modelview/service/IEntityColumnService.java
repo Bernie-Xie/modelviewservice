@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IEntityColumnService {
 
-    public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
+    List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
 
-    public List<EntityColumn> getEntityColumnsByEntityId(Integer coreEntityId);
+    List<EntityColumn> getEntityColumnsByEntityId(Integer coreEntityId);
 
-    public void saveEntityColumnsByEntity(EntityColumn entityColumn);
+    Integer saveEntityColumnsByEntity(EntityColumn entityColumn);
 }

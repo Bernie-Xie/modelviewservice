@@ -29,8 +29,8 @@ public class EntityColumnService implements IEntityColumnService {
 	}
 
 	@Transactional(readOnly = false)
-	public void saveEntityColumnsByEntity(EntityColumn entityColumn){
-		entityColumnDao.saveEntityColumnsByEntity(entityColumn);
+	public Integer saveEntityColumnsByEntity(EntityColumn entityColumn){
+		return entityColumnDao.saveEntityColumnsByEntity(entityColumn);
 	}
 	
 }

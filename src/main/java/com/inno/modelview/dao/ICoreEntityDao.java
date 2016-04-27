@@ -6,14 +6,14 @@ import com.inno.modelview.model.DTO.EntityDTO;
 
 public interface ICoreEntityDao {
 	
-	public List<EntityDTO> getEnties();
+	List<EntityDTO> getEnties();
 
-	public void saveCoreEntity(CoreEntity coreEntity);
+	Integer saveCoreEntity(CoreEntity coreEntity);
 	
-	public CoreEntity getCoreEntityById(int id);
+	CoreEntity getCoreEntityById(int id);
 
-	public CoreEntity getCoreEntityByName(String name);
+	CoreEntity getCoreEntityByName(String name);
 	
-	public CoreEntity getParentEntity(CoreEntity coreEntity);
+	CoreEntity getParentEntity(CoreEntity coreEntity);
 
 }

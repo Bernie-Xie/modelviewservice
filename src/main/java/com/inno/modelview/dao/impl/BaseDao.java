@@ -8,8 +8,15 @@ import com.inno.modelview.dao.Dao;
 
 public class BaseDao<T> extends HibernateDaoSupport implements Dao<T> {
 
-	public void save(T model) {
-		this.getHibernateTemplate().save(model);
+	@Autowired
+	public void setMySessionFactory(SessionFactory sessionFactory){
+		super.setSessionFactory(sessionFactory);
+		this.getHibernateTemplate().setCheckWriteOperations(false);
+	}
+
+	public Integer save(T model) {
+		Object id = this.getHibernateTemplate().save(model);
+		return (Integer)id;
 	}
 
 	public void update(T model) {
@@ -21,10 +28,5 @@ public class BaseDao<T> extends HibernateDaoSupport implements Dao<T> {
 		this.getHibernateTemplate().delete(model);
 	}
 
-	@Autowired
-    public void setMySessionFactory(SessionFactory sessionFactory){
-        super.setSessionFactory(sessionFactory);
-		this.getHibernateTemplate().setCheckWriteOperations(false);
-    }
 
 }

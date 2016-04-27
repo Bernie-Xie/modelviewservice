@@ -18,17 +18,17 @@ public class EntityColumnDao extends BaseDao<EntityColumn> implements IEntityCol
 		return (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?",new Object[]{coreEntity.getId()});
 	}
 
-	public List<EntityColumn> getEntityColumnsByEntityId(Integer id){
-		List<EntityColumn> list = (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?", id);
+	public List<EntityColumn> getEntityColumnsByEntityId(Integer entityId){
+		List<EntityColumn> list = (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?", entityId);
 		return list;
 	}
 
-	public void saveEntityColumnsByEntity(EntityColumn entityColumn) {
-		save(entityColumn);
+	public Integer saveEntityColumnsByEntity(EntityColumn entityColumn) {
+		return save(entityColumn);
 	}
 
-	public EntityColumn getEntityColumnById(EntityColumn entityColumn){
-		List<EntityColumn> entityColumns = (List<EntityColumn>) this.getHibernateTemplate().find("FROM EntityColumn where id = ?",new Object[]{entityColumn.getId()});
+	public EntityColumn getEntityColumnById(Integer entityColumnId){
+		List<EntityColumn> entityColumns = (List<EntityColumn>) this.getHibernateTemplate().find("FROM EntityColumn where id = ?", entityColumnId);
 		if(entityColumns.size() > 0){
 			return entityColumns.get(0);
 		}

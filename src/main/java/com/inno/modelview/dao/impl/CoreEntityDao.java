@@ -54,8 +54,8 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	}
 
 
-	public void saveCoreEntity(CoreEntity coreEntity){
-		save(coreEntity);
+	public Integer saveCoreEntity(CoreEntity coreEntity){
+		return save(coreEntity);
 	}
 	
 	public CoreEntity getParentEntity(CoreEntity coreEntity){

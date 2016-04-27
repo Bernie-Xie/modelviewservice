@@ -55,12 +55,13 @@ public class EntityController {
 	@RequestMapping(value="/entity", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity saveEntity(@RequestBody CoreEntity coreEntity){
+		Integer gId = 0;
 		try {
-			coreEntityService.saveCoreEntity(coreEntity);
+			gId = coreEntityService.saveCoreEntity(coreEntity);
 		} catch (Exception ex) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(gId, HttpStatus.CREATED);
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class EntityController {
 							e.getDescription(),
 							e.getName(),
 							e.getEntityType());
-					entityColumnService.saveEntityColumnsByEntity(entityColumn);
+					Integer id = entityColumnService.saveEntityColumnsByEntity(entityColumn);
 				});
 			}
 		} catch (Exception ex) {

@@ -6,11 +6,11 @@ import com.inno.modelview.model.EntityColumn;
 import java.util.List;
 
 public interface IEntityColumnDao {
-    public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
+    List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity);
 
-    public List<EntityColumn> getEntityColumnsByEntityId(Integer coreEntityId);
+    List<EntityColumn> getEntityColumnsByEntityId(Integer coreEntityId);
 
-    public void saveEntityColumnsByEntity(EntityColumn entityColumn);
+    Integer saveEntityColumnsByEntity(EntityColumn entityColumn);
 
-    public EntityColumn getEntityColumnById(EntityColumn entityColumn);
+    EntityColumn getEntityColumnById(Integer entityColumnId);
 }

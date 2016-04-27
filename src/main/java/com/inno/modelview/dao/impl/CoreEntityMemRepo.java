@@ -28,8 +28,8 @@ public class CoreEntityMemRepo extends BaseDao<CoreEntity> implements ICoreEntit
     }
 
     @Override
-    public void saveCoreEntity(CoreEntity coreEntity) {
-
+    public Integer saveCoreEntity(CoreEntity coreEntity) {
+        return 0;
     }
 
     @Override
