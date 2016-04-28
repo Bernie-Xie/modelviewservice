@@ -47,14 +47,14 @@ API Payload
     "name": "Claim",
     "entityType": "VARCHAR",
     "coreEntity_Id": 10,
-    "foreignKey": null
+    "foreignKey_Id": null
   },
   {
     "description": "CreateTime",
     "name": "Claim",
     "entityType": "DATETIME",
     "coreEntity_Id": 10,
-    "foreignKey": null
+    "foreignKey_Id": null
   }
 ]
 ```

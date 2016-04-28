@@ -8,12 +8,12 @@ public class EntityColumnDTO {
 
     public EntityColumnDTO() { }
 
-    public EntityColumnDTO(Integer coreEntity_Id, Integer foreignKey_Id, String description, String name, String entityType) {
-        this.coreEntity_Id = coreEntity_Id;
-        this.foreignKey_Id = foreignKey_Id;
+    public EntityColumnDTO(String description, String name, String entityType, Integer coreEntity_Id, Integer foreignKey_Id) {
         this.description = description;
         this.name = name;
         this.entityType = entityType;
+        this.coreEntity_Id = coreEntity_Id;
+        this.foreignKey_Id = foreignKey_Id;
     }
 
     private String description;

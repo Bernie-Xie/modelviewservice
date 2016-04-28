@@ -21,7 +21,6 @@ public class UserController {
      * The response is to POST the create username and last modified username.
      */
     @RequestMapping(value="/contributor", method= RequestMethod.POST)
-    @ResponseBody
     public ResponseEntity saveContributor(@RequestBody Contributor contributor){
         try {
             iUserService.saveContributor(contributor);
@@ -35,7 +34,6 @@ public class UserController {
      * The response is to POST the entity columns.
      */
     @RequestMapping(value="/popularity", method= RequestMethod.POST)
-    @ResponseBody
     public ResponseEntity savePopularity(@RequestBody Popularity popularity){
         try {
             iUserService.savePopularity(popularity);

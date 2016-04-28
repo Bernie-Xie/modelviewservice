@@ -1,5 +1,7 @@
 package com.inno.modelview.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inno.modelview.model.DTO.EntityColumnDTO;
 import com.inno.modelview.model.DTO.EntityDTO;
 import com.inno.modelview.model.EntityColumn;
@@ -27,7 +29,6 @@ public class EntityController {
 	 * The response is get available entities.
 	 */
 	@RequestMapping("/entities")
-	@ResponseBody
 	public ResponseEntity<List<EntityDTO>> getEntities(){
 		List<EntityDTO> entityDTOs = coreEntityService.getAllEntities();
 		if (entityDTOs.isEmpty()) {
@@ -40,7 +41,6 @@ public class EntityController {
 	 * The response is get entity by its name
 	 */
 	@RequestMapping(value="/entity/{name}", method=RequestMethod.GET)
-	@ResponseBody
 	public ResponseEntity<CoreEntity> getEntityByName(@PathVariable String name){
 		CoreEntity coreEntity = coreEntityService.getCoreEntityByName(name);
 		if (coreEntity==null) {
@@ -53,7 +53,6 @@ public class EntityController {
 	 * The response is to mimic the POST.
 	 */
 	@RequestMapping(value="/entity", method=RequestMethod.POST)
-	@ResponseBody
 	public ResponseEntity saveEntity(@RequestBody CoreEntity coreEntity){
 		Integer gId = 0;
 		try {
@@ -68,7 +67,6 @@ public class EntityController {
 	 * The response is to return parent core entity (List) in terms of coreEntity
 	 */
 	@RequestMapping("/entity/parentes")
-	@ResponseBody
 	public ResponseEntity<List<CoreEntity>> getParentEntities(CoreEntity coreEntity){
 		List<CoreEntity> coreEntities = coreEntityService.getAllParentEntites(coreEntity);
 		if (coreEntities.isEmpty()) {
@@ -81,7 +79,6 @@ public class EntityController {
 	 * The response is to return EntityColumns (List) in terms of the EntityID
 	 */
 	@RequestMapping(value="/entitycolumn/{entityId}", method=RequestMethod.GET)
-	@ResponseBody
 	public ResponseEntity<List<EntityColumn>> getEntityColumnsByEntityId(@PathVariable Integer entityId){
 		List<EntityColumn> entityColumns =  entityColumnService.getEntityColumnsByEntityId(entityId);
 		if (entityColumns.isEmpty()) {
@@ -94,16 +91,17 @@ public class EntityController {
 	 * The response is to POST the entity columns.
 	 */
 	@RequestMapping(value="/entitycolumn", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity saveEntityColumn(@RequestBody List<EntityColumnDTO> entityDTOs){
-		if (entityDTOs.isEmpty()) {
+	public ResponseEntity saveEntityColumn(@RequestBody List<EntityColumnDTO> entityColumnDTOs){
+		if (entityColumnDTOs.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		ObjectMapper mapper = new ObjectMapper();
+		List<EntityColumnDTO> entityColumnDTOList = mapper.convertValue(entityColumnDTOs, new TypeReference<List<EntityColumnDTO>>(){});
 		try {
-			if (entityDTOs.size() > 0) {
-				int coreEntityId = entityDTOs.get(0).getCoreEntity_Id();
+			if (entityColumnDTOList.size() > 0) {
+				int coreEntityId = entityColumnDTOList.get(0).getCoreEntity_Id();
 				CoreEntity coreEntity = coreEntityService.getCoreEntityById(coreEntityId);
-				entityDTOs.forEach(e -> {
+				entityColumnDTOList.forEach(e -> {
 					EntityColumn entityColumn = new EntityColumn(coreEntity,
 							e.getForeignKey_Id() == null ? null : coreEntityService.getCoreEntityById(e.getForeignKey_Id()),
 							e.getDescription(),
