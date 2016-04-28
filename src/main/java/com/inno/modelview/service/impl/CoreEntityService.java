@@ -20,6 +20,7 @@ public class CoreEntityService implements ICoreEntityService {
 	@Qualifier("OutMemory")
 	private ICoreEntityDao coreEntityDao;
 
+	@Transactional
 	public List<EntityDTO> getAllEntities(){
 		return coreEntityDao.getEnties();
 	}
@@ -39,7 +40,7 @@ public class CoreEntityService implements ICoreEntityService {
 	}
 
 	public List<CoreEntity> getAllParentEntites(CoreEntity coreEntity){
-		List<CoreEntity> parentEntites = new ArrayList<CoreEntity>();
+		List<CoreEntity> parentEntites = new ArrayList<>();
 		CoreEntity currentEntity = coreEntity;
 		while(true){
 			if(currentEntity.getParentEntity() == null){

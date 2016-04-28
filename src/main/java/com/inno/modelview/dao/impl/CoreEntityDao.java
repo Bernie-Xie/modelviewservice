@@ -1,11 +1,15 @@
 package com.inno.modelview.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.inno.modelview.model.EntityColumn;
 import com.inno.modelview.model.DTO.EntityDTO;
 import com.inno.modelview.service.IEntityColumnService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -18,19 +22,34 @@ import javax.annotation.Resource;
 @Component(value="OutMemory")
 public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao {
 
+	@Resource(name="sessionFactory")
+	private SessionFactory sessionFactory;
+
 	@Resource
 	IEntityColumnService entityColumnService;
 
-	//TODO will update with Popularity and Contributor
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
+	//TODO Will user properties to save all SQLs
+	//TODO Consider to use CACHE to cache the result
 	public List<EntityDTO> getEnties(){
 		List<EntityDTO> entityDTOs = new ArrayList<>();
-		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity");
-		coreEntities.forEach(e->entityDTOs.add(new EntityDTO(
-				e.getEntityName(),
-				0,
-				0,
-				"Will"
-		)));
+		List metalist = getSession().createSQLQuery("select * from mv_coreentity e " +
+				"left join mv_popularity p on e.id=p.MODELPUBLICID " +
+				"left join mv_contributor c on e.id=c.MODELPUBLICID " +
+				"where p.modeltype=0 and c.modeltype=0")
+				.addScalar("entityName", StandardBasicTypes.STRING)
+				.addScalar("views", StandardBasicTypes.INTEGER)
+				.addScalar("likes", StandardBasicTypes.INTEGER)
+				.addScalar("createUserName", StandardBasicTypes.STRING).list();
+		for (Iterator iterator = metalist.iterator(); iterator.hasNext();) {
+			Object[] objects = (Object[]) iterator.next();
+			entityDTOs.add(new EntityDTO(
+					objects[0].toString(), (int)objects[1], (int)objects[2], objects[3].toString()
+			));
+		}
 		return entityDTOs;
 	}
 	
