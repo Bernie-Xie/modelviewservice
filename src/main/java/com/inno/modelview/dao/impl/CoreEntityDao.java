@@ -6,45 +6,45 @@ import java.util.List;
 
 import com.inno.modelview.model.EntityColumn;
 import com.inno.modelview.model.DTO.EntityDTO;
+import com.inno.modelview.model.ModelType;
 import com.inno.modelview.service.IEntityColumnService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.type.StandardBasicTypes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.inno.modelview.dao.ICoreEntityDao;
 import com.inno.modelview.model.CoreEntity;
 
-import javax.annotation.Resource;
 
 @Repository
 @Component(value="OutMemory")
 public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao {
 
-	@Resource
+	@Autowired
 	IEntityColumnService entityColumnService;
-
-	public Session getSession() {
-		return this.getHibernateTemplate().getSessionFactory().getCurrentSession();
-	}
 
 	//TODO Will user properties to save all SQLs
 	//TODO Consider to use CACHE to cache the result
 	public List<EntityDTO> getEnties(){
 		List<EntityDTO> entityDTOs = new ArrayList<>();
-		List metalist = getSession().createSQLQuery("select * from mv_coreentity e " +
-				"left join mv_popularity p on e.id=p.MODELPUBLICID " +
-				"left join mv_contributor c on e.id=c.MODELPUBLICID " +
-				"where p.modeltype=0 and c.modeltype=0")
+		List metaList = super.getSession().createSQLQuery("SELECT DISTINCT e.entityName, p.views, p.likes, c.createUserName FROM mv_coreentity e " +
+				"LEFT JOIN mv_popularity p ON e.id=p.MODELPUBLICID AND p.modeltype=:pModeltype " +
+				"LEFT JOIN mv_contributor c ON e.id=c.MODELPUBLICID AND c.modeltype=:cModeltype ")
 				.addScalar("entityName", StandardBasicTypes.STRING)
 				.addScalar("views", StandardBasicTypes.INTEGER)
 				.addScalar("likes", StandardBasicTypes.INTEGER)
-				.addScalar("createUserName", StandardBasicTypes.STRING).list();
-		for (Iterator iterator = metalist.iterator(); iterator.hasNext();) {
+				.addScalar("createUserName", StandardBasicTypes.STRING)
+				.setInteger("pModeltype", ModelType.ENTITY.getValue())
+				.setInteger("cModeltype", ModelType.ENTITY.getValue())
+				.list();
+		for (Iterator iterator = metaList.iterator(); iterator.hasNext();) {
 			Object[] objects = (Object[]) iterator.next();
 			entityDTOs.add(new EntityDTO(
-					objects[0].toString(), (int)objects[1], (int)objects[2], objects[3].toString()
+					objects[0] == null ? "" : objects[0].toString(),	//entityName
+					objects[1] == null ? 0 : (Integer)objects[1],		//views
+					objects[2] == null ? 0 : (Integer)objects[2],		//likes
+					objects[3] == null ? "" : objects[3].toString()		//createUserName
 			));
 		}
 		return entityDTOs;
@@ -83,7 +83,7 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	}
 
 	private CoreEntity appendEntityColumns(CoreEntity coreEntity) {
-		List<EntityColumn> entityColumns = entityColumnService.getEntityColumnsByEntityId(coreEntity.getId());
+		List<EntityColumn> entityColumns = entityColumnService.getEntityColumnsByEntity(coreEntity);
 		coreEntity.setEntityColumns(entityColumns);
 		return coreEntity;
 	}

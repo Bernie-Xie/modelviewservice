@@ -1,9 +1,5 @@
 package com.inno.modelview.model.DTO;
 
-import com.inno.modelview.model.Contributor;
-import com.inno.modelview.model.CoreEntity;
-import com.inno.modelview.model.Popularity;
-
 /**
  * EntityDTO is to exposed to "All Entities" view layer
  */

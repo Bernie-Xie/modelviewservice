@@ -15,7 +15,7 @@ import javax.swing.text.html.parser.Entity;
 public class EntityColumnDao extends BaseDao<EntityColumn> implements IEntityColumnDao {
 
 	public List<EntityColumn> getEntityColumnsByEntity(CoreEntity coreEntity){
-		return (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?",new Object[]{coreEntity.getId()});
+		return getEntityColumnsByEntityId(coreEntity.getId());
 	}
 
 	public List<EntityColumn> getEntityColumnsByEntityId(Integer entityId){

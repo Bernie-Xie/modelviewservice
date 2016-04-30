@@ -1,5 +1,6 @@
 package com.inno.modelview.dao.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -12,6 +13,10 @@ public class BaseDao<T> extends HibernateDaoSupport implements Dao<T> {
 	public void setMySessionFactory(SessionFactory sessionFactory){
 		super.setSessionFactory(sessionFactory);
 		this.getHibernateTemplate().setCheckWriteOperations(false);
+	}
+
+	public Session getSession() {
+		return this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 	}
 
 	public Integer save(T model) {

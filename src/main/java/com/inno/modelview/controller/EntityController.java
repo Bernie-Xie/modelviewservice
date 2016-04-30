@@ -50,7 +50,7 @@ public class EntityController {
 	}
 
 	/**
-	 * The response is to mimic the POST.
+	 * Save entity
 	 */
 	@RequestMapping(value="/entity", method=RequestMethod.POST)
 	public ResponseEntity saveEntity(@RequestBody CoreEntity coreEntity){
@@ -88,7 +88,7 @@ public class EntityController {
 	}
 
 	/**
-	 * The response is to POST the entity columns.
+	 * Save entity columns
 	 */
 	@RequestMapping(value="/entitycolumn", method=RequestMethod.POST)
 	public ResponseEntity saveEntityColumn(@RequestBody List<EntityColumnDTO> entityColumnDTOs){
@@ -115,4 +115,5 @@ public class EntityController {
 		}
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	//TODO Add Update
 }
