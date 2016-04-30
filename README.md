@@ -14,9 +14,11 @@ API Overview:
 ```html
 GET http://localhost:8085/entities        
 GET http://localhost:8085/entity/{entityName}         
-GET http://localhost:8085/entityy/parentes     
-GET http://localhost:8085/entitycolumn/{entityId}      
+GET http://localhost:8085/entity/parentes     
+GET http://localhost:8085/entitycolumn/{entityId}  
 
+GET http://localhost:8085/topics    
+GET http://localhost:8085/topic/{topicName}   
 ```
 
 **POST**   
@@ -25,6 +27,9 @@ POST http://localhost:8085/entity
 POST http://localhost:8085/entitycolumn
 POST http://localhost:8085/popularity
 POST http://localhost:8085/contributor
+
+POST http://localhost:8085/topic   
+POST http://localhost:8085/topicstep  
 ```
 
 API Payload
@@ -77,6 +82,35 @@ API Payload
   "modelType": 0,
   "modelPublicId": 1
 }
+```
+
+*POST topic*
+```json
+{
+  "description": "How to do the payment?",
+  "name": "how_to_do_the_payment",
+  "title": "How to do the payment?"
+}
+```
+
+*POST topicStep*
+```json
+[
+  {
+    "stepId": 0,
+    "shortDescription": "Short Go to menu and open Ready to pay.",
+    "description": "Long Go to menu and open Ready to pay.",
+    "screenShotUrl": "../javascripts/sample2/1.jpg",
+    "topic_Id": 1
+  },
+  {
+    "stepId": 1,
+    "shortDescription": "12Short Go to menu and open Ready to pay.",
+    "description": "13Long Go to menu and open Ready to pay.",
+    "screenShotUrl": "../javascripts/sample2/2.jpg",
+    "topic_Id": 1
+  }
+]
 ```
 
 Table schema
