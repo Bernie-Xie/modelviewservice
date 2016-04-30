@@ -22,14 +22,11 @@ import javax.annotation.Resource;
 @Component(value="OutMemory")
 public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao {
 
-	@Resource(name="sessionFactory")
-	private SessionFactory sessionFactory;
-
 	@Resource
 	IEntityColumnService entityColumnService;
 
 	public Session getSession() {
-		return sessionFactory.getCurrentSession();
+		return this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 	}
 
 	//TODO Will user properties to save all SQLs
