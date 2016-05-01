@@ -89,7 +89,8 @@ API Payload
 {
   "description": "How to do the payment?",
   "name": "how_to_do_the_payment",
-  "title": "How to do the payment?"
+  "title": "How to do the payment?",
+  "userCase": "Having an a nice weekend!!!!"
 }
 ```
 

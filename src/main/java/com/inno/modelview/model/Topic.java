@@ -13,12 +13,14 @@ public class Topic {
 
 	public Topic() {}
 
-	public Topic(String description, String name, String title, boolean isActive) {
+	public Topic(String description, String name, String title, String userCase, boolean isActive) {
 		this.description = description;
 		this.name = name;
 		this.title = title;
+		this.userCase = userCase;
 		this.isActive = isActive;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -34,6 +36,9 @@ public class Topic {
 	@Column(length = 255)
 	private String title;
 
+	@Column(length = 5000)
+	private String userCase;
+
 	@OneToMany
 	@JoinColumn(name="topic_id")
 	private List<TopicStep> topicSteps = new ArrayList<>();
@@ -41,6 +46,7 @@ public class Topic {
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isActive = true;
+
 
 	public int getId() {
 		return id;
@@ -80,6 +86,14 @@ public class Topic {
 
 	public void setTopicSteps(List<TopicStep> topicSteps) {
 		this.topicSteps = topicSteps;
+	}
+
+	public String getUserCase() {
+		return userCase;
+	}
+
+	public void setUserCase(String userCase) {
+		this.userCase = userCase;
 	}
 
 	@JsonIgnore
