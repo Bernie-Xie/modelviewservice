@@ -1,6 +1,7 @@
 package com.inno.modelview.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -10,12 +11,13 @@ public class TopicStep {
 
 	public TopicStep() {}
 
-	public TopicStep(Topic topic, int stepId, String shortDescription, String description, String screenShotUrl) {
+	public TopicStep(Topic topic, int stepId, String shortDescription, String description, String screenShotUrl, boolean isActive) {
 		this.topic = topic;
 		this.stepId = stepId;
 		this.shortDescription = shortDescription;
 		this.description = description;
 		this.screenShotUrl = screenShotUrl;
+		this.isActive = isActive;
 	}
 
 	@JsonIgnore
@@ -36,6 +38,11 @@ public class TopicStep {
 	private Topic topic;
 	
 	private String screenShotUrl;
+
+	@JsonIgnore
+	@Column(nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isActive = true;
 
 
 	public int getId() {
@@ -86,5 +93,12 @@ public class TopicStep {
 		this.screenShotUrl = screenShotUrl;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 }

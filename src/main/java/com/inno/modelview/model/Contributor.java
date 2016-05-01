@@ -1,5 +1,8 @@
 package com.inno.modelview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,11 +11,12 @@ public class Contributor {
 
     public Contributor() {}
 
-    public Contributor(String createUserName, String lastModifiedUserName, ModelType modelType, int modelPublicId) {
+    public Contributor(String createUserName, String lastModifiedUserName, ModelType modelType, int modelPublicId, boolean isActive) {
         this.createUserName = createUserName;
         this.lastModifiedUserName = lastModifiedUserName;
         this.modelType = modelType;
         this.modelPublicId = modelPublicId;
+        this.isActive = isActive;
     }
 
     @Id
@@ -28,6 +32,11 @@ public class Contributor {
 
     @Column(nullable = false)
     private int modelPublicId;
+
+    @JsonIgnore
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isActive = true;
 
     public String getCreateUserName() {
         return createUserName;
@@ -59,6 +68,14 @@ public class Contributor {
 
     public void setModelPublicId(int modelPublicId) {
         this.modelPublicId = modelPublicId;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     @Override

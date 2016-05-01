@@ -26,7 +26,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 		List<TopicDTO> topicDTOs = new ArrayList<>();
 		List metaList = super.getSession().createSQLQuery("SELECT DISTINCT t.title, t.name, t.description, p.views, p.likes, c.createUserName FROM mv_topic t " +
 				"LEFT JOIN mv_popularity p ON t.id=p.MODELPUBLICID AND p.modeltype = :pModelType " +
-				"LEFT JOIN mv_contributor c ON t.id=c.MODELPUBLICID AND c.modeltype = :cModelType ")
+				"LEFT JOIN mv_contributor c ON t.id=c.MODELPUBLICID AND c.modeltype = :cModelType WHERE t.isActive=1")
 				.addScalar("title", StandardBasicTypes.STRING)
 				.addScalar("name", StandardBasicTypes.STRING)
 				.addScalar("description", StandardBasicTypes.STRING)
@@ -52,7 +52,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 
 	@Override
 	public Topic getTopicById(int id) {
-		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE Id = ?", id);
+		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE isActive=1 AND Id = ?", id);
 		if(topics.size() > 0){
 			Topic topic = topics.get(0);
 			return appendTopicSteps(topic);
@@ -62,7 +62,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 
 	@Override
 	public Topic getTopicByName(String name) {
-		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE name = ?", name);
+		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE isActive=1 AND name = ?", name);
 		if(topics.size() > 0){
 			Topic topic = topics.get(0);
 			return appendTopicSteps(topic);

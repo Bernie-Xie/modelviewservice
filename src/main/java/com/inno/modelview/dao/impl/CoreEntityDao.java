@@ -30,7 +30,8 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 		List<EntityDTO> entityDTOs = new ArrayList<>();
 		List metaList = super.getSession().createSQLQuery("SELECT DISTINCT e.entityName, p.views, p.likes, c.createUserName FROM mv_coreentity e " +
 				"LEFT JOIN mv_popularity p ON e.id=p.MODELPUBLICID AND p.modeltype=:pModeltype " +
-				"LEFT JOIN mv_contributor c ON e.id=c.MODELPUBLICID AND c.modeltype=:cModeltype ")
+				"LEFT JOIN mv_contributor c ON e.id=c.MODELPUBLICID AND c.modeltype=:cModeltype " +
+				"WHERE e.isActive=1")
 				.addScalar("entityName", StandardBasicTypes.STRING)
 				.addScalar("views", StandardBasicTypes.INTEGER)
 				.addScalar("likes", StandardBasicTypes.INTEGER)
@@ -51,7 +52,7 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	}
 	
 	public CoreEntity getCoreEntityById(int id){
-		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where id = ?",new Object[]{new Integer(id)});
+		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where isActive=1 and id = ?",new Object[]{new Integer(id)});
 		if(coreEntities.size() > 0){
 			CoreEntity returnCoreEntity = coreEntities.get(0);
 			return appendEntityColumns(returnCoreEntity);
@@ -61,7 +62,7 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 
 	@Override
 	public CoreEntity getCoreEntityByName(String name) {
-		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where entityname = ?", name);
+		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where isActive=1 and entityname = ?", name);
 		if(coreEntities.size() > 0){
 			CoreEntity returnCoreEntity = coreEntities.get(0);
 			return appendEntityColumns(returnCoreEntity);
@@ -75,7 +76,7 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	}
 	
 	public CoreEntity getParentEntity(CoreEntity coreEntity){
-		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where parentEntity = ?",new Object[]{coreEntity.getParentEntity().getId()});
+		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where isActive=1 and parentEntity = ?",new Object[]{coreEntity.getParentEntity().getId()});
 		if(coreEntities.size() > 0){
 			return coreEntities.get(0);
 		}

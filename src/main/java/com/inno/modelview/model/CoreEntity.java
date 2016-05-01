@@ -1,6 +1,7 @@
 package com.inno.modelview.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,11 +13,12 @@ public class CoreEntity {
 
 	public CoreEntity() {}
 
-	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity) {
+	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
 		this.entityName = entityName;
 		this.businessValue = businessValue;
 		this.entityBuilder = entityBuilder;
 		this.parentEntity = parentEntity;
+		this.isActive = isActive;
 	}
 
 	@JsonIgnore
@@ -46,6 +48,12 @@ public class CoreEntity {
 	public List<EntityColumn> getEntityColumns() {
 		return entityColumns;
 	}
+
+	@JsonIgnore
+	@Column(nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isActive = true;
+
 
 	public void setEntityColumns(List<EntityColumn> entityColumns) {
 		this.entityColumns = entityColumns;
@@ -91,5 +99,12 @@ public class CoreEntity {
 		this.parentEntity = parentEntity;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 }
 

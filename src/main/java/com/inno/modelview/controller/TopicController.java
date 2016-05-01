@@ -93,7 +93,8 @@ public class TopicController {
 							e.getStepId(),
 							e.getShortDescription(),
 							e.getDescription(),
-							e.getScreenShotUrl());
+							e.getScreenShotUrl(),
+							true);
 					Integer id = topicStepService.saveTopicStep(topicStep);
 				});
 			}

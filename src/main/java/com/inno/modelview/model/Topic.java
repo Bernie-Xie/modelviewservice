@@ -1,6 +1,7 @@
 package com.inno.modelview.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,10 +13,11 @@ public class Topic {
 
 	public Topic() {}
 
-	public Topic(String description, String name, String title) {
+	public Topic(String description, String name, String title, boolean isActive) {
 		this.description = description;
 		this.name = name;
 		this.title = title;
+		this.isActive = isActive;
 	}
 
 	@JsonIgnore
@@ -36,6 +38,11 @@ public class Topic {
 	@OneToMany
 	@JoinColumn(name="topic_id")
 	private List<TopicStep> topicSteps = new ArrayList<>();
+
+	@JsonIgnore
+	@Column(nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isActive = true;
 
 
 	public int getId() {
@@ -76,5 +83,13 @@ public class Topic {
 
 	public void setTopicSteps(List<TopicStep> topicSteps) {
 		this.topicSteps = topicSteps;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }
