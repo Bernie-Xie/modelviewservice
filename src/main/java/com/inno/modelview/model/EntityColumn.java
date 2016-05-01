@@ -28,13 +28,11 @@ public class EntityColumn {
 		this.isActive = isActive;
 	}
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
 
-	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="COREENTITY_ID", nullable = false)
 	private CoreEntity owner;
@@ -52,11 +50,11 @@ public class EntityColumn {
 	@Column(length = 255)
 	private String entityType;
 
-	@JsonIgnore
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isActive = true;
-	
+
+	@JsonIgnore
 	public int getId() {
 		return id;
 	}
@@ -65,6 +63,7 @@ public class EntityColumn {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	public CoreEntity getOwner() {
 		return owner;
 	}
@@ -105,6 +104,7 @@ public class EntityColumn {
 		this.entityType = entityType;
 	}
 
+	@JsonIgnore
 	public boolean isActive() {
 		return isActive;
 	}

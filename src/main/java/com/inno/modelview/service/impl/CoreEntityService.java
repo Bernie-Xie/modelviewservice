@@ -29,11 +29,13 @@ public class CoreEntityService implements ICoreEntityService {
 	public Integer saveCoreEntity(CoreEntity coreEntity) {
 		return coreEntityDao.saveCoreEntity(coreEntity);
 	}
-	
+
+	@Transactional
 	public CoreEntity getCoreEntityById(int id){
 		return coreEntityDao.getCoreEntityById(id);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public CoreEntity getCoreEntityByName(String name) {
 		return coreEntityDao.getCoreEntityByName(name);

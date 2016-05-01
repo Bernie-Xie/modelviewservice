@@ -20,7 +20,7 @@ public class TopicStep {
 		this.isActive = isActive;
 	}
 
-	@JsonIgnore
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
@@ -32,19 +32,19 @@ public class TopicStep {
 	
 	private String description;
 
-	@JsonIgnore
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="topic_id", nullable = false)
 	private Topic topic;
 	
 	private String screenShotUrl;
 
-	@JsonIgnore
+
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isActive = true;
 
-
+	@JsonIgnore
 	public int getId() {
 		return id;
 	}
@@ -77,6 +77,7 @@ public class TopicStep {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public Topic getTopic() {
 		return topic;
 	}
@@ -93,6 +94,7 @@ public class TopicStep {
 		this.screenShotUrl = screenShotUrl;
 	}
 
+	@JsonIgnore
 	public boolean isActive() {
 		return isActive;
 	}

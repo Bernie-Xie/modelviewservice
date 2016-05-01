@@ -13,15 +13,15 @@ public class CoreEntity {
 
 	public CoreEntity() {}
 
-	public CoreEntity(String entityName, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
+	public CoreEntity(String entityName, String entityTable, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
 		this.entityName = entityName;
+		this.entityTable = entityTable;
 		this.businessValue = businessValue;
 		this.entityBuilder = entityBuilder;
 		this.parentEntity = parentEntity;
 		this.isActive = isActive;
 	}
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
@@ -29,6 +29,9 @@ public class CoreEntity {
 
 	@Column(length = 255)
 	private String entityName;
+
+	@Column(length = 255)
+	private String entityTable;
 
 	@Column(length = 5000)
 	private String businessValue;
@@ -49,11 +52,12 @@ public class CoreEntity {
 		return entityColumns;
 	}
 
-	@JsonIgnore
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isActive = true;
 
+	@Transient
+	private String existEntities;
 
 	public void setEntityColumns(List<EntityColumn> entityColumns) {
 		this.entityColumns = entityColumns;
@@ -73,6 +77,14 @@ public class CoreEntity {
 
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
+	}
+
+	public String getEntityTable() {
+		return entityTable;
+	}
+
+	public void setEntityTable(String entityTable) {
+		this.entityTable = entityTable;
 	}
 
 	public String getBusinessValue() {
@@ -99,12 +111,21 @@ public class CoreEntity {
 		this.parentEntity = parentEntity;
 	}
 
+	@JsonIgnore
 	public boolean isActive() {
 		return isActive;
 	}
 
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getExistEntities() {
+		return existEntities;
+	}
+
+	public void setExistEntities(String existEntities) {
+		this.existEntities = existEntities;
 	}
 }
 

@@ -55,7 +55,8 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where isActive=1 and id = ?",new Object[]{new Integer(id)});
 		if(coreEntities.size() > 0){
 			CoreEntity returnCoreEntity = coreEntities.get(0);
-			return appendEntityColumns(returnCoreEntity);
+			returnCoreEntity = appendEntityColumns(returnCoreEntity);
+			return appendExistEntities(returnCoreEntity);
 		}
 		return null;
 	}
@@ -65,7 +66,8 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 		List<CoreEntity> coreEntities = (List<CoreEntity>) this.getHibernateTemplate().find("FROM CoreEntity where isActive=1 and entityname = ?", name);
 		if(coreEntities.size() > 0){
 			CoreEntity returnCoreEntity = coreEntities.get(0);
-			return appendEntityColumns(returnCoreEntity);
+			returnCoreEntity = appendEntityColumns(returnCoreEntity);
+			return appendExistEntities(returnCoreEntity);
 		}
 		return null;
 	}
@@ -86,6 +88,15 @@ public class CoreEntityDao extends BaseDao<CoreEntity> implements ICoreEntityDao
 	private CoreEntity appendEntityColumns(CoreEntity coreEntity) {
 		List<EntityColumn> entityColumns = entityColumnService.getEntityColumnsByEntity(coreEntity);
 		coreEntity.setEntityColumns(entityColumns);
+		return coreEntity;
+	}
+
+	private CoreEntity appendExistEntities(CoreEntity coreEntity) {
+		List metaList = super.getSession().createSQLQuery("SELECT entityName FROM mv_coreentity e WHERE isActive=1")
+				.addScalar("entityName").list();
+		StringBuffer existEntitiesBuffer = new StringBuffer();
+		metaList.forEach(e-> existEntitiesBuffer.append(e.toString()+","));
+		coreEntity.setExistEntities(existEntitiesBuffer.toString());
 		return coreEntity;
 	}
 }

@@ -20,7 +20,6 @@ public class Topic {
 		this.isActive = isActive;
 	}
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
@@ -39,11 +38,9 @@ public class Topic {
 	@JoinColumn(name="topic_id")
 	private List<TopicStep> topicSteps = new ArrayList<>();
 
-	@JsonIgnore
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isActive = true;
-
 
 	public int getId() {
 		return id;
@@ -85,6 +82,7 @@ public class Topic {
 		this.topicSteps = topicSteps;
 	}
 
+	@JsonIgnore
 	public boolean isActive() {
 		return isActive;
 	}

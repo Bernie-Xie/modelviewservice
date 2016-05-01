@@ -33,7 +33,7 @@ public class Contributor {
     @Column(nullable = false)
     private int modelPublicId;
 
-    @JsonIgnore
+
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isActive = true;
@@ -70,6 +70,7 @@ public class Contributor {
         this.modelPublicId = modelPublicId;
     }
 
+    @JsonIgnore
     public boolean isActive() {
         return isActive;
     }
