@@ -13,9 +13,10 @@ public class CoreEntity {
 
 	public CoreEntity() {}
 
-	public CoreEntity(String entityName, String entityTable, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
+	public CoreEntity(String entityName, String entityTable, String entityPath, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
 		this.entityName = entityName;
 		this.entityTable = entityTable;
+		this.entityPath = entityPath;
 		this.businessValue = businessValue;
 		this.entityBuilder = entityBuilder;
 		this.parentEntity = parentEntity;
@@ -32,6 +33,9 @@ public class CoreEntity {
 
 	@Column(length = 255)
 	private String entityTable;
+
+	@Column(length = 3000)
+	private String entityPath;
 
 	@Column(length = 5000)
 	private String businessValue;
@@ -85,6 +89,14 @@ public class CoreEntity {
 
 	public void setEntityTable(String entityTable) {
 		this.entityTable = entityTable;
+	}
+
+	public String getEntityPath() {
+		return entityPath;
+	}
+
+	public void setEntityPath(String entityPath) {
+		this.entityPath = entityPath;
 	}
 
 	public String getBusinessValue() {

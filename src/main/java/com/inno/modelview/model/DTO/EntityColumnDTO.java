@@ -8,42 +8,42 @@ public class EntityColumnDTO {
 
     public EntityColumnDTO() { }
 
-    public EntityColumnDTO(String description, String name, String entityType, Integer coreEntity_Id, Integer foreignKey_Id) {
-        this.description = description;
-        this.name = name;
-        this.entityType = entityType;
+    public EntityColumnDTO(String columnDescription, String columnName, String columnType, Integer coreEntity_Id, Integer foreignKey_Id) {
+        this.columnDescription = columnDescription;
+        this.columnName = columnName;
+        this.columnType = columnType;
         this.coreEntity_Id = coreEntity_Id;
         this.foreignKey_Id = foreignKey_Id;
     }
 
-    private String description;
-    private String name;
-    private String entityType;
+    private String columnDescription;
+    private String columnName;
+    private String columnType;
     private Integer coreEntity_Id;
     private Integer foreignKey_Id;
 
-    public String getDescription() {
-        return description;
+    public String getColumnDescription() {
+        return columnDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setColumnDescription(String columnDescription) {
+        this.columnDescription = columnDescription;
     }
 
-    public String getName() {
-        return name;
+    public String getColumnName() {
+        return columnName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
-    public String getEntityType() {
-        return entityType;
+    public String getColumnType() {
+        return columnType;
     }
 
-    public void setEntityType(String entityType) {
-        this.entityType = entityType;
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
     }
 
     public Integer getCoreEntity_Id() {

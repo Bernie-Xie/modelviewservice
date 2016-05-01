@@ -48,17 +48,17 @@ API Payload
 ```json
 [
   {
-    "description": "FFF",
-    "name": "Claim",
-    "entityType": "VARCHAR",
-    "coreEntity_Id": 10,
+    "columnDescription": "Claim",
+    "columnName": "Claim",
+    "columnType": "Claim",
+    "coreEntity_Id": 2,
     "foreignKey_Id": null
   },
   {
-    "description": "CreateTime",
-    "name": "Claim",
-    "entityType": "DATETIME",
-    "coreEntity_Id": 10,
+    "columnDescription": "CreateTime",
+    "columnName": "AAA14",
+    "columnType": "DATETIME",
+    "coreEntity_Id": 2,
     "foreignKey_Id": null
   }
 ]

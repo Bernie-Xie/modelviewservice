@@ -104,9 +104,9 @@ public class EntityController {
 				entityColumnDTOList.forEach(e -> {
 					EntityColumn entityColumn = new EntityColumn(coreEntity,
 							e.getForeignKey_Id() == null ? null : coreEntityService.getCoreEntityById(e.getForeignKey_Id()),
-							e.getDescription(),
-							e.getName(),
-							e.getEntityType(),
+							e.getColumnDescription(),
+							e.getColumnName(),
+							e.getColumnType(),
 							true);
 					Integer id = entityColumnService.saveEntityColumnsByEntity(entityColumn);
 				});

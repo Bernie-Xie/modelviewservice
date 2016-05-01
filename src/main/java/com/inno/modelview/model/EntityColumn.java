@@ -19,12 +19,12 @@ public class EntityColumn {
 
 	public EntityColumn() {}
 
-	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String description, String name, String entityType, boolean isActive) {
+	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String columnDescription, String columnName, String columnType, boolean isActive) {
 		this.owner = owner;
 		this.foreignKey = foreignKey;
-		this.description = description;
-		this.name = name;
-		this.entityType = entityType;
+		this.columnDescription = columnDescription;
+		this.columnName = columnName;
+		this.columnType = columnType;
 		this.isActive = isActive;
 	}
 
@@ -42,13 +42,13 @@ public class EntityColumn {
 	private CoreEntity foreignKey;
 
 	@Column(length = 255)
-	private String description;
+	private String columnDescription;
 
 	@Column(length = 255)
-	private String name;
+	private String columnName;
 
 	@Column(length = 255)
-	private String entityType;
+	private String columnType;
 
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -80,28 +80,28 @@ public class EntityColumn {
 		this.foreignKey = foreignKey;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getColumnDescription() {
+		return columnDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setColumnDescription(String columnDescription) {
+		this.columnDescription = columnDescription;
 	}
 
-	public String getName() {
-		return name;
+	public String getColumnName() {
+		return columnName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
 
-	public String getEntityType() {
-		return entityType;
+	public String getColumnType() {
+		return columnType;
 	}
 
-	public void setEntityType(String entityType) {
-		this.entityType = entityType;
+	public void setColumnType(String columnType) {
+		this.columnType = columnType;
 	}
 
 	@JsonIgnore
