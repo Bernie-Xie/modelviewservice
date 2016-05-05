@@ -23,7 +23,7 @@
 	</bean>
     
 	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-	
+
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
@@ -31,5 +31,7 @@
             </list>
         </property>
     </bean>
-	
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+    <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
+
 </beans> 
