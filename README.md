@@ -121,6 +121,18 @@ API Payload
 ]
 ```
 
+*PUT topic (TO BE CONTINUE FOR TOPICSTEPS)*
+```json
+{
+  "id": 1,
+  "description": "How to do the payment?",
+  "name": "how_to_do_the_payment",
+  "title": "How to do the payment?",
+  "userCase": "Having an a nice weekend!!!!",
+  "status": 0
+}
+```
+
 ENUM
 ------
 *ModelStatus* (Used to describe the status of models)
