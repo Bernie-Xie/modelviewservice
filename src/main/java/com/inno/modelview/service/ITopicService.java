@@ -15,4 +15,6 @@ public interface ITopicService {
 
 	Integer saveTopic(Topic topic);
 
+	void updateTopic(Topic topic);
+
 }

@@ -47,7 +47,7 @@ public class TopicController {
 	}
 
 	/**
-	 * Save topic.
+	 * Create topic.
 	 */
 	@RequestMapping(value="/topic", method=RequestMethod.POST)
 	public ResponseEntity saveTopic(@RequestBody Topic topic){
@@ -58,6 +58,19 @@ public class TopicController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(gId, HttpStatus.CREATED);
+	}
+
+	/**
+	 * Update topic.
+	 */
+	@RequestMapping(value="/topic", method=RequestMethod.PUT)
+	public ResponseEntity updateTopic(@RequestBody Topic topic){
+		try {
+			topicService.updateTopic(topic);
+		} catch (Exception ex) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 	/**
@@ -72,6 +85,8 @@ public class TopicController {
 		return new ResponseEntity<>(topicSteps, HttpStatus.OK);
 	}
 
+
+	//TODO PUT TopicSteps, move to history and create new ones.
 
 	/**
 	 * Save topic steps
@@ -93,8 +108,7 @@ public class TopicController {
 							e.getStepId(),
 							e.getShortDescription(),
 							e.getDescription(),
-							e.getScreenShotUrl(),
-							true);
+							e.getScreenShotUrl());
 					Integer id = topicStepService.saveTopicStep(topicStep);
 				});
 			}

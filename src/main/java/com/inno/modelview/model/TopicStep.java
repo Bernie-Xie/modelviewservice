@@ -11,13 +11,12 @@ public class TopicStep {
 
 	public TopicStep() {}
 
-	public TopicStep(Topic topic, int stepId, String shortDescription, String description, String screenShotUrl, boolean isActive) {
+	public TopicStep(Topic topic, int stepId, String shortDescription, String description, String screenShotUrl) {
 		this.topic = topic;
 		this.stepId = stepId;
 		this.shortDescription = shortDescription;
 		this.description = description;
 		this.screenShotUrl = screenShotUrl;
-		this.isActive = isActive;
 	}
 
 
@@ -39,10 +38,6 @@ public class TopicStep {
 	
 	private String screenShotUrl;
 
-
-	@Column(nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isActive = true;
 
 	@JsonIgnore
 	public int getId() {
@@ -92,15 +87,6 @@ public class TopicStep {
 
 	public void setScreenShotUrl(String screenShotUrl) {
 		this.screenShotUrl = screenShotUrl;
-	}
-
-	@JsonIgnore
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
 	}
 
 }

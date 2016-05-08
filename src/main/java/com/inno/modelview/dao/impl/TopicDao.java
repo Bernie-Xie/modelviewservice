@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.inno.modelview.model.ModelType;
 import org.eclipse.jetty.util.StringUtil;
+import org.hibernate.SQLQuery;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 		List<TopicDTO> topicDTOs = new ArrayList<>();
 		List metaList = super.getSession().createSQLQuery("SELECT DISTINCT t.title, t.name, t.description, p.views, p.likes, c.createUserName FROM mv_topic t " +
 				"LEFT JOIN mv_popularity p ON t.id=p.MODELPUBLICID AND p.modeltype = :pModelType " +
-				"LEFT JOIN mv_contributor c ON t.id=c.MODELPUBLICID AND c.modeltype = :cModelType WHERE t.isActive=1")
+				"LEFT JOIN mv_contributor c ON t.id=c.MODELPUBLICID AND c.modeltype = :cModelType WHERE t.status=0")
 				.addScalar("title", StandardBasicTypes.STRING)
 				.addScalar("name", StandardBasicTypes.STRING)
 				.addScalar("description", StandardBasicTypes.STRING)
@@ -52,7 +53,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 
 	@Override
 	public Topic getTopicById(int id) {
-		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE isActive=1 AND Id = ?", id);
+		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE status=0 AND Id = ?", id);
 		if(topics.size() > 0){
 			Topic topic = topics.get(0);
 			return appendTopicSteps(topic);
@@ -62,7 +63,7 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 
 	@Override
 	public Topic getTopicByName(String name) {
-		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE isActive=1 AND name = ?", name);
+		List<Topic> topics = (List<Topic>) this.getHibernateTemplate().find("FROM Topic WHERE status=0 AND name = ?", name);
 		if(topics.size() > 0){
 			Topic topic = topics.get(0);
 			return appendTopicSteps(topic);
@@ -73,6 +74,19 @@ public class TopicDao extends BaseDao<Topic> implements ITopicDao {
 	@Override
 	public Integer saveTopic(Topic topic) {
 		return save(topic);
+	}
+
+	//TODO move the data into history tables
+	@Override
+	public void updateTopic(Topic topic) {
+		SQLQuery sqlQuery= super.getSession().createSQLQuery("UPDATE MV_Topic SET description=:vDescription, status=:vStatus, name=:vName, title=:vTitle, userCase=:vUserCase WHERE id=:vId");
+		sqlQuery.setString("vDescription", topic.getDescription())
+				.setInteger("vStatus", topic.getStatus().getValue())
+				.setString("vName", topic.getName())
+				.setString("vTitle",topic.getTitle())
+				.setString("vUserCase", topic.getUserCase())
+				.setInteger("vId", topic.getId());
+		sqlQuery.executeUpdate();
 	}
 
 	private Topic appendTopicSteps(Topic topic) {

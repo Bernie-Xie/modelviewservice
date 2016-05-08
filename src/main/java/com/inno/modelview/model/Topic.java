@@ -13,12 +13,12 @@ public class Topic {
 
 	public Topic() {}
 
-	public Topic(String description, String name, String title, String userCase, boolean isActive) {
+	public Topic(String description, String name, String title, String userCase, ModelStatus status) {
 		this.description = description;
 		this.name = name;
 		this.title = title;
 		this.userCase = userCase;
-		this.isActive = isActive;
+		this.status = status;
 	}
 
 
@@ -44,8 +44,7 @@ public class Topic {
 	private List<TopicStep> topicSteps = new ArrayList<>();
 
 	@Column(nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isActive = true;
+	private ModelStatus status;
 
 
 	public int getId() {
@@ -96,12 +95,11 @@ public class Topic {
 		this.userCase = userCase;
 	}
 
-	@JsonIgnore
-	public boolean isActive() {
-		return isActive;
+	public ModelStatus getStatus() {
+		return status;
 	}
 
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setStatus(ModelStatus status) {
+		this.status = status;
 	}
 }

@@ -13,14 +13,14 @@ public class CoreEntity {
 
 	public CoreEntity() {}
 
-	public CoreEntity(String entityName, String entityTable, String entityPath, String businessValue, String entityBuilder, CoreEntity parentEntity, boolean isActive) {
+	public CoreEntity(String entityName, String entityTable, String entityPath, String businessValue, String entityBuilder, CoreEntity parentEntity, ModelStatus status) {
 		this.entityName = entityName;
 		this.entityTable = entityTable;
 		this.entityPath = entityPath;
 		this.businessValue = businessValue;
 		this.entityBuilder = entityBuilder;
 		this.parentEntity = parentEntity;
-		this.isActive = isActive;
+		this.status = status;
 	}
 
 	@Id
@@ -57,8 +57,7 @@ public class CoreEntity {
 	}
 
 	@Column(nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isActive = true;
+	private ModelStatus status;
 
 	@Transient
 	private String existEntities;
@@ -123,13 +122,12 @@ public class CoreEntity {
 		this.parentEntity = parentEntity;
 	}
 
-	@JsonIgnore
-	public boolean isActive() {
-		return isActive;
+	public ModelStatus getStatus() {
+		return status;
 	}
 
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setStatus(ModelStatus status) {
+		this.status = status;
 	}
 
 	public String getExistEntities() {

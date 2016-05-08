@@ -36,4 +36,11 @@ public class TopicService implements ITopicService {
 	public Integer saveTopic(Topic topic) {
 		return topicDao.saveTopic(topic);
 	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void updateTopic(Topic topic) {
+		topicDao.updateTopic(topic);
+	}
+
 }

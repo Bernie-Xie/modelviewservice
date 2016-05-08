@@ -19,7 +19,7 @@ public class EntityColumnDao extends BaseDao<EntityColumn> implements IEntityCol
 	}
 
 	public List<EntityColumn> getEntityColumnsByEntityId(Integer entityId){
-		List<EntityColumn> list = (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where isActive=1 and COREENTITY_ID = ?", entityId);
+		List<EntityColumn> list = (List<EntityColumn>) this.getHibernateTemplate().find("From EntityColumn where COREENTITY_ID = ?", entityId);
 		return list;
 	}
 
@@ -28,7 +28,7 @@ public class EntityColumnDao extends BaseDao<EntityColumn> implements IEntityCol
 	}
 
 	public EntityColumn getEntityColumnById(Integer entityColumnId){
-		List<EntityColumn> entityColumns = (List<EntityColumn>) this.getHibernateTemplate().find("FROM EntityColumn isActive=1 and where id = ?", entityColumnId);
+		List<EntityColumn> entityColumns = (List<EntityColumn>) this.getHibernateTemplate().find("FROM EntityColumn where id = ?", entityColumnId);
 		if(entityColumns.size() > 0){
 			return entityColumns.get(0);
 		}

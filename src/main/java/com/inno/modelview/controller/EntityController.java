@@ -106,8 +106,7 @@ public class EntityController {
 							e.getForeignKey_Id() == null ? null : coreEntityService.getCoreEntityById(e.getForeignKey_Id()),
 							e.getColumnDescription(),
 							e.getColumnName(),
-							e.getColumnType(),
-							true);
+							e.getColumnType());
 					Integer id = entityColumnService.saveEntityColumnsByEntity(entityColumn);
 				});
 			}

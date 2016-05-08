@@ -15,4 +15,6 @@ public interface ITopicDao {
 
 	Integer saveTopic(Topic topic);
 
+	void updateTopic(Topic topic);
+
 }

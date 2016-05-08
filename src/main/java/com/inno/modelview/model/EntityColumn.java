@@ -19,13 +19,12 @@ public class EntityColumn {
 
 	public EntityColumn() {}
 
-	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String columnDescription, String columnName, String columnType, boolean isActive) {
+	public EntityColumn(CoreEntity owner, CoreEntity foreignKey, String columnDescription, String columnName, String columnType) {
 		this.owner = owner;
 		this.foreignKey = foreignKey;
 		this.columnDescription = columnDescription;
 		this.columnName = columnName;
 		this.columnType = columnType;
-		this.isActive = isActive;
 	}
 
 	@Id
@@ -49,10 +48,6 @@ public class EntityColumn {
 
 	@Column(length = 255)
 	private String columnType;
-
-	@Column(nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isActive = true;
 
 	@JsonIgnore
 	public int getId() {
@@ -102,14 +97,5 @@ public class EntityColumn {
 
 	public void setColumnType(String columnType) {
 		this.columnType = columnType;
-	}
-
-	@JsonIgnore
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
 	}
 }

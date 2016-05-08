@@ -12,7 +12,7 @@ import com.inno.modelview.model.Topic;
 public class TopicStepDao extends BaseDao<TopicStep> implements ITopicStepDao {
 	
 	public TopicStep getStepById(String id){
-		List<TopicStep> topicSteps = (List<TopicStep>) this.getHibernateTemplate().find("FROM TopicStep where isActive=1 AND id = ?",new Object[]{new Integer(id)});
+		List<TopicStep> topicSteps = (List<TopicStep>) this.getHibernateTemplate().find("FROM TopicStep where id = ?",new Object[]{new Integer(id)});
 		if(topicSteps.size() > 0){
 			return topicSteps.get(0);
 		}else{
@@ -26,7 +26,7 @@ public class TopicStepDao extends BaseDao<TopicStep> implements ITopicStepDao {
 
 	@Override
 	public List<TopicStep> getStepsByTopicId(Integer topicId) {
-		List<TopicStep> topicSteps = (List<TopicStep>) this.getHibernateTemplate().find("FROM TopicStep where isActive=1 AND topic_Id = ?", topicId);
+		List<TopicStep> topicSteps = (List<TopicStep>) this.getHibernateTemplate().find("FROM TopicStep where topic_Id = ?", topicId);
 		return topicSteps;
 	}
 
