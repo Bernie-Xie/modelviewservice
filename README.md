@@ -32,6 +32,11 @@ POST http://localhost:8085/topic
 POST http://localhost:8085/topicstep  
 ```
 
+**PUT**   
+```html
+PUT http://localhost:8085/topic   
+```
+
 API Payload
 ----------------
 *POST entity*
@@ -40,7 +45,8 @@ API Payload
   "entityName": "SC_Job",
   "businessValue": "**For Policy perspective**, we offer many more built-in car insurance discounts",
   "entityBuilder": "<pre><code class='java'>public class ClassLazyTypeResolver {  \r abc...  \r   }</code></pre>",
-  "parentEntity": null
+  "parentEntity": null,
+  "status": 0
 }
 ```
 
@@ -90,7 +96,8 @@ API Payload
   "description": "How to do the payment?",
   "name": "how_to_do_the_payment",
   "title": "How to do the payment?",
-  "userCase": "Having an a nice weekend!!!!"
+  "userCase": "Having an a nice weekend!!!!",
+  "status": 0
 }
 ```
 
@@ -101,18 +108,30 @@ API Payload
     "stepId": 0,
     "shortDescription": "Short Go to menu and open Ready to pay.",
     "description": "Long Go to menu and open Ready to pay.",
-    "screenShotUrl": "../javascripts/sample2/1.jpg",
+    "screenShotUrl": "/uploads/1",
     "topic_Id": 1
   },
   {
     "stepId": 1,
     "shortDescription": "12Short Go to menu and open Ready to pay.",
     "description": "13Long Go to menu and open Ready to pay.",
-    "screenShotUrl": "../javascripts/sample2/2.jpg",
+    "screenShotUrl": "/uploads/2",
     "topic_Id": 1
   }
 ]
 ```
+
+ENUM
+------
+*ModelStatus* (Used to describe the status of models)
+>ACTIVE(0)  
+>DRAFT(1)     
+>RETRIED(2)    
+
+*ModelType* (Used for common models' join)
+>ENTITY(0)  
+>TOPIC(1)     
+
 
 Table schema
 -------------
