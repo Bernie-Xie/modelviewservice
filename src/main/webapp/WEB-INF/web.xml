@@ -32,13 +32,24 @@
 	</servlet-mapping>
 
 	<filter>
-		<filter-name>corsFilter</filter-name>
+		<filter-name>CORSFilter</filter-name>
 		<filter-class>com.inno.modelview.configuration.CORSFilter</filter-class>
 	</filter>
-	
+
+	<!-- Need to limit ULR-PATTERN for these services not exposed to Public -->
 	<filter-mapping>
-		<filter-name>corsFilter</filter-name>
-		<servlet-name>mvc-dispatcher</servlet-name>
+		<filter-name>CORSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>JWTFilter</filter-name>
+		<filter-class>com.inno.modelview.configuration.JWTFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>JWTFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<welcome-file-list>

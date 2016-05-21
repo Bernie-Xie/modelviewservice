@@ -11,6 +11,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springversion>4.2.4.RELEASE</springversion>
+		<commons.io.version>2.4</commons.io.version>
+		<jjwt.version>0.6.0</jjwt.version>
 		<jettyVersion>9.3.8.v20160314</jettyVersion>
 	</properties>
 
@@ -100,6 +102,18 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>${jettyVersion}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
 		</dependency>
 
 	</dependencies>

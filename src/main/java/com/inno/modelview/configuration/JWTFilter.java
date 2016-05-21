@@ -1,0 +1,67 @@
+package com.inno.modelview.configuration;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.inno.modelview.exception.InvalidToken;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
+
+/**
+ * Created by Will Hu on 16-5-19.
+ * The filter is to handle JSon web token
+ * As you can see we use a hardcoded key "SECRETKEY" here.
+ * In real production scenario’s this would typically be randomly generated on start-up or stored in some kind of central cache.
+ * This has the added benefit of making all tokens invalid when the service restarts.
+ * For convenience it’s hardcoded in these examples.
+ */
+public class JWTFilter implements Filter {
+
+    final static String AUTH_HEADER = "Authorization";
+    final static String BEARER = "Bearer ";
+    final static String SECRET_KEY = "SECRETKEY"; // TODO need to be change to complex string and config in resource file
+    final static String CLAIMS = "claims";
+
+    final static Pattern excludeUrls = Pattern.compile("/login$", Pattern.CASE_INSENSITIVE);
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        final HttpServletRequest request = (HttpServletRequest) req;
+        final String authHeader = request.getHeader(AUTH_HEADER);
+
+        if (isExludeJWTRequest(request)) {
+            if (authHeader == null || !authHeader.startsWith(BEARER)) {
+                throw new InvalidToken("Missing or invalid Authorization header.");
+            }
+            final String token = authHeader.substring(7);   // The part after "Bearer "
+            try {
+                final Claims claims = Jwts.parser().setSigningKey(SECRET_KEY)
+                        .parseClaimsJws(token).getBody();
+                request.setAttribute(CLAIMS, claims);
+            } catch (final SignatureException ex) {
+                throw new InvalidToken();
+            }
+        }
+        chain.doFilter(req, res);
+    }
+
+
+    /**
+     * The function is to let the some request pass JWT validation e.g. Login request
+     */
+    private boolean isExludeJWTRequest(HttpServletRequest request) {
+        String url = request.getRequestURI().toString();
+        Matcher m = excludeUrls.matcher(url);
+        return (!m.matches());
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException { }
+
+    @Override
+    public void destroy() { }
+}
