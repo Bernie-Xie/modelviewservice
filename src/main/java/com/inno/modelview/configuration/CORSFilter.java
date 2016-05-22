@@ -10,7 +10,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * Created by Will Hu
+ * The filter is to allow cross domain request.
+ * The service is design to provide public visit, thus the Access-Control-Allow-Credentials is *
+ * If customising headers are to be accessible, Access-Control-Allow-Headers is to be modified to reach the goal.
+ */
 public class CORSFilter implements Filter {
 
     final static String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
@@ -26,7 +31,7 @@ public class CORSFilter implements Filter {
         responseSettings.put(ACCESS_CONTROL_ALLOW_CREDENTIALS, "*");
         responseSettings.put(ACCESS_CONTROL_ALLOW_METHODS, "POST, GET, PUT, OPTIONS, DELETE");
         responseSettings.put(ACCESS_CONTROL_MAX_AGE, "172800");
-        responseSettings.put(ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name");
+        responseSettings.put(ACCESS_CONTROL_ALLOW_HEADERS, "Authorization, Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name");
     }
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {

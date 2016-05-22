@@ -2,6 +2,7 @@ package com.inno.modelview.configuration;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,7 @@ import io.jsonwebtoken.SignatureException;
  * In real production scenario’s this would typically be randomly generated on start-up or stored in some kind of central cache.
  * This has the added benefit of making all tokens invalid when the service restarts.
  * For convenience it’s hardcoded in these examples.
+ * OPTIONS is allowed here to pass the filter because the preflight requests would send "OPTION" first without Authority.
  */
 public class JWTFilter implements Filter {
 
@@ -31,11 +33,14 @@ public class JWTFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) req;
+        final HttpServletResponse response = (HttpServletResponse) res;
         final String authHeader = request.getHeader(AUTH_HEADER);
 
-        if (isExludeJWTRequest(request)) {
+        if (isExludeJWTRequest(request) && request.getMethod() != "OPTIONS") {
             if (authHeader == null || !authHeader.startsWith(BEARER)) {
-                throw new InvalidToken("Missing or invalid Authorization header.");
+                //throw new InvalidToken("Missing or invalid Authorization header.");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
             final String token = authHeader.substring(7);   // The part after "Bearer "
             try {
@@ -43,7 +48,9 @@ public class JWTFilter implements Filter {
                         .parseClaimsJws(token).getBody();
                 request.setAttribute(CLAIMS, claims);
             } catch (final SignatureException ex) {
-                throw new InvalidToken();
+                //throw new InvalidToken();
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
         }
         chain.doFilter(req, res);
