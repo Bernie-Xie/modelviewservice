@@ -35,4 +35,10 @@ public class AuthorityController {
         return new ResponseEntity<>(token, HttpStatus.CREATED);
     }
 
+    @RequestMapping(value="/logout", method= RequestMethod.POST)
+    public ResponseEntity logout(@RequestBody final UserLogin login){
+        // Remove from the repository
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
