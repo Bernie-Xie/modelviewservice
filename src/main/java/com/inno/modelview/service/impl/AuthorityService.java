@@ -5,6 +5,7 @@ import com.inno.modelview.model.Login.Token;
 import com.inno.modelview.model.Login.UserLogin;
 import com.inno.modelview.model.Login.UserRole;
 import com.inno.modelview.service.IAuthorityService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,13 @@ public class AuthorityService implements IAuthorityService {
                 .compact();
         System.out.println(login.getName() + "getToken");
         return new Token(token);
+    }
+
+    @Override
+    public void logout(Claims claims) {
+        String username = (String) claims.get("sub");
+        List<UserRole> roles = (List<UserRole>)claims.get("roles");
+        System.out.println(username + roles.toString());
     }
 
     private Date tokenExpireDate(Date startDate) {

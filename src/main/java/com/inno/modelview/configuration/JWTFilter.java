@@ -28,7 +28,7 @@ public class JWTFilter implements Filter {
     final static String SECRET_KEY = "SECRETKEY"; // TODO need to be change to complex string and config in resource file
     final static String CLAIMS = "claims";
 
-    final static Pattern excludeUrls = Pattern.compile("/login|/logout$", Pattern.CASE_INSENSITIVE);
+    final static Pattern excludeUrls = Pattern.compile("/login$", Pattern.CASE_INSENSITIVE);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
