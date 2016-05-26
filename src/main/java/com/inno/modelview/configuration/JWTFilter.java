@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import com.inno.modelview.exception.InvalidToken;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 
@@ -29,6 +30,7 @@ public class JWTFilter implements Filter {
     final static String CLAIMS = "claims";
 
     final static Pattern excludeUrls = Pattern.compile("/login$", Pattern.CASE_INSENSITIVE);
+    final static Pattern partiallyExcludeUrls = Pattern.compile("/logout$", Pattern.CASE_INSENSITIVE);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -47,6 +49,12 @@ public class JWTFilter implements Filter {
                 final Claims claims = Jwts.parser().setSigningKey(SECRET_KEY)
                         .parseClaimsJws(token).getBody();
                 request.setAttribute(CLAIMS, claims);
+            } catch (final ExpiredJwtException ex) {
+                if (!isPartiallyExludeJWTRequest(request)) {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+                // for Logout request as well as JWT Expired case, let it go!
             } catch (final SignatureException ex) {
                 //throw new InvalidToken();
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -58,11 +66,21 @@ public class JWTFilter implements Filter {
 
 
     /**
-     * The function is to let the some request pass JWT validation e.g. Login request
+     * The function is to let the some requests skip JWT validation e.g. Login request
      */
     private boolean isExludeJWTRequest(HttpServletRequest request) {
         String url = request.getRequestURI().toString();
         Matcher m = excludeUrls.matcher(url);
+        return (!m.matches());
+    }
+
+    /**
+     * The function is to let the some request partially skip JWT validation.
+     * For example, Logout request needs to pass JWT validation if the token is expired.
+     */
+    private boolean isPartiallyExludeJWTRequest(HttpServletRequest request) {
+        String url = request.getRequestURI().toString();
+        Matcher m = partiallyExcludeUrls.matcher(url);
         return (!m.matches());
     }
 
