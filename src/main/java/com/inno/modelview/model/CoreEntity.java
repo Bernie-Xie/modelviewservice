@@ -137,5 +137,21 @@ public class CoreEntity {
 	public void setExistEntities(String existEntities) {
 		this.existEntities = existEntities;
 	}
+
+	@Override
+	public String toString() {
+		return "CoreEntity{" +
+				"id=" + id +
+				", entityName='" + entityName + '\'' +
+				", entityTable='" + entityTable + '\'' +
+				", entityPath='" + entityPath + '\'' +
+				", businessValue='" + businessValue + '\'' +
+				", entityBuilder='" + entityBuilder + '\'' +
+				", entityColumns=" + entityColumns +
+				", parentEntity=" + parentEntity +
+				", status=" + status +
+				", existEntities='" + existEntities + '\'' +
+				'}';
+	}
 }
 

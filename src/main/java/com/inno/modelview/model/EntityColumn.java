@@ -98,4 +98,16 @@ public class EntityColumn {
 	public void setColumnType(String columnType) {
 		this.columnType = columnType;
 	}
+
+	@Override
+	public String toString() {
+		return "EntityColumn{" +
+				"id=" + id +
+				", owner=" + owner +
+				", foreignKey=" + foreignKey +
+				", columnDescription='" + columnDescription + '\'' +
+				", columnName='" + columnName + '\'' +
+				", columnType='" + columnType + '\'' +
+				'}';
+	}
 }

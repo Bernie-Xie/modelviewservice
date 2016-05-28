@@ -60,4 +60,15 @@ public class TopicStepDTO {
     public void setTopic_Id(int topic_Id) {
         this.topic_Id = topic_Id;
     }
+
+    @Override
+    public String toString() {
+        return "TopicStepDTO{" +
+                "stepId=" + stepId +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
+                ", screenShotUrl='" + screenShotUrl + '\'' +
+                ", topic_Id=" + topic_Id +
+                '}';
+    }
 }

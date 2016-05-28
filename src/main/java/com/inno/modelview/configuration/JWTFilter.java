@@ -12,9 +12,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * Created by Will Hu on 16-5-19.
+ * Created by Will Hu on 2016-5-19.
  * The filter is to handle JSon web token
  * As you can see we use a hardcoded key "SECRETKEY" here.
  * In real production scenario’s this would typically be randomly generated on start-up or stored in some kind of central cache.
@@ -23,6 +25,8 @@ import io.jsonwebtoken.SignatureException;
  * OPTIONS is allowed here to pass the filter because the preflight requests would send "OPTION" first without Authority.
  */
 public class JWTFilter implements Filter {
+
+    final static Logger logger = LogManager.getLogger(JWTFilter.class.getName());
 
     final static String AUTH_HEADER = "Authorization";
     final static String BEARER = "Bearer ";
@@ -40,7 +44,7 @@ public class JWTFilter implements Filter {
 
         if (isExludeJWTRequest(request) && request.getMethod() != "OPTIONS") {
             if (authHeader == null || !authHeader.startsWith(BEARER)) {
-                //throw new InvalidToken("Missing or invalid Authorization header.");
+                logger.error(new InvalidToken("Missing or invalid Authorization header."));
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
@@ -56,7 +60,11 @@ public class JWTFilter implements Filter {
                 }
                 // for Logout request as well as JWT Expired case, let it go!
             } catch (final SignatureException ex) {
-                //throw new InvalidToken();
+                logger.error(new InvalidToken());
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            } catch (final Exception ex) {
+                logger.error(ex);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }

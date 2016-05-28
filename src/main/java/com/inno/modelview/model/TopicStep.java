@@ -89,4 +89,15 @@ public class TopicStep {
 		this.screenShotUrl = screenShotUrl;
 	}
 
+	@Override
+	public String toString() {
+		return "TopicStep{" +
+				"id=" + id +
+				", stepId=" + stepId +
+				", shortDescription='" + shortDescription + '\'' +
+				", description='" + description + '\'' +
+				", topic=" + topic +
+				", screenShotUrl='" + screenShotUrl + '\'' +
+				'}';
+	}
 }

@@ -50,4 +50,14 @@ public class EntityDTO {
     public void setCreateUserName(String createUserName) {
         this.createUserName = createUserName;
     }
+
+    @Override
+    public String toString() {
+        return "EntityDTO{" +
+                "entityName='" + entityName + '\'' +
+                ", views=" + views +
+                ", likes=" + likes +
+                ", createUserName='" + createUserName + '\'' +
+                '}';
+    }
 }

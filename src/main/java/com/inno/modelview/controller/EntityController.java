@@ -9,6 +9,8 @@ import com.inno.modelview.service.IEntityColumnService;
 import com.inno.modelview.model.CoreEntity;
 import com.inno.modelview.service.ICoreEntityService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,9 @@ import java.util.List;
 
 @Controller
 public class EntityController {
-	
+
+	final static Logger logger = LogManager.getLogger(EntityController.class.getName());
+
 	@Autowired
 	ICoreEntityService coreEntityService;
 	@Autowired
@@ -58,6 +62,7 @@ public class EntityController {
 		try {
 			gId = coreEntityService.saveCoreEntity(coreEntity);
 		} catch (Exception ex) {
+			logger.error("saveEntity", ex);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(gId, HttpStatus.CREATED);
@@ -111,6 +116,7 @@ public class EntityController {
 				});
 			}
 		} catch (Exception ex) {
+			logger.error("saveEntityColumn", ex);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(HttpStatus.CREATED);

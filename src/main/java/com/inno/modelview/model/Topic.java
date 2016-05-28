@@ -102,4 +102,17 @@ public class Topic {
 	public void setStatus(ModelStatus status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "Topic{" +
+				"id=" + id +
+				", description='" + description + '\'' +
+				", name='" + name + '\'' +
+				", title='" + title + '\'' +
+				", userCase='" + userCase + '\'' +
+				", topicSteps=" + topicSteps +
+				", status=" + status +
+				'}';
+	}
 }

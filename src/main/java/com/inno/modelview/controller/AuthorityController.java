@@ -4,6 +4,8 @@ import com.inno.modelview.model.Login.Token;
 import com.inno.modelview.model.Login.UserLogin;
 import com.inno.modelview.service.IAuthorityService;
 import io.jsonwebtoken.Claims;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthorityController {
 
     final static String CLAIMS = "claims";
+    final static Logger logger = LogManager.getLogger(AuthorityController.class.getName());
 
     @Autowired
     IAuthorityService authorityService;
@@ -35,6 +38,7 @@ public class AuthorityController {
         try {
             token = authorityService.login(login);
         } catch (Exception e) {
+            logger.error("login", e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(token, HttpStatus.CREATED);
@@ -49,6 +53,7 @@ public class AuthorityController {
         try {
             authorityService.logout(claims);
         } catch (Exception e) {
+            logger.error("logout", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);

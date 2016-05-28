@@ -70,4 +70,16 @@ public class TopicDTO {
     public void setCreateUserName(String createUserName) {
         this.createUserName = createUserName;
     }
+
+    @Override
+    public String toString() {
+        return "TopicDTO{" +
+                "title='" + title + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", views=" + views +
+                ", likes=" + likes +
+                ", createUserName='" + createUserName + '\'' +
+                '}';
+    }
 }

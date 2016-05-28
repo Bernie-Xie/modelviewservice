@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inno.modelview.model.DTO.TopicDTO;
 import com.inno.modelview.model.DTO.TopicStepDTO;
 import com.inno.modelview.model.TopicStep;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Controller
 public class TopicController {
+
+	final static Logger logger = LogManager.getLogger(TopicController.class.getName());
 
 	@Autowired
 	ITopicService topicService;
@@ -51,10 +55,13 @@ public class TopicController {
 	 */
 	@RequestMapping(value="/topic", method=RequestMethod.POST)
 	public ResponseEntity saveTopic(@RequestBody Topic topic){
+		//TODO use AOP
+		logger.info("read to saveTopic:" + topic.toString());
 		Integer gId = 0;
 		try {
 			gId = topicService.saveTopic(topic);
 		} catch (Exception ex) {
+			logger.error("saveTopic", ex);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(gId, HttpStatus.CREATED);
@@ -64,10 +71,12 @@ public class TopicController {
 	 * Update topic.
 	 */
 	@RequestMapping(value="/topic", method=RequestMethod.PUT)
-	public ResponseEntity updateTopic(@RequestBody Topic topic){
+	public ResponseEntity updateTopic(@RequestBody Topic topic) {
+		logger.info("read to updateTopic:" + topic.toString());
 		try {
 			topicService.updateTopic(topic);
 		} catch (Exception ex) {
+			logger.error("updateTopic", ex);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -94,6 +103,7 @@ public class TopicController {
 	@RequestMapping(value="/topicstep", method=RequestMethod.POST)
 	public ResponseEntity saveEntityColumn(@RequestBody List<TopicStepDTO> topicStepDTOs){
 		if (topicStepDTOs.isEmpty()) {
+			logger.error("saveEntityColumn error: Empty");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		ObjectMapper mapper = new ObjectMapper();
@@ -113,6 +123,7 @@ public class TopicController {
 				});
 			}
 		} catch (Exception ex) {
+			logger.error("saveEntityColumn", ex);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(HttpStatus.CREATED);

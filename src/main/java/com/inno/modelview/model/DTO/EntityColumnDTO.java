@@ -61,4 +61,15 @@ public class EntityColumnDTO {
     public void setForeignKey_Id(Integer foreignKey_Id) {
         this.foreignKey_Id = foreignKey_Id;
     }
+
+    @Override
+    public String toString() {
+        return "EntityColumnDTO{" +
+                "columnDescription='" + columnDescription + '\'' +
+                ", columnName='" + columnName + '\'' +
+                ", columnType='" + columnType + '\'' +
+                ", coreEntity_Id=" + coreEntity_Id +
+                ", foreignKey_Id=" + foreignKey_Id +
+                '}';
+    }
 }

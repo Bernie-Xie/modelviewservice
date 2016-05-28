@@ -3,6 +3,8 @@ package com.inno.modelview.controller;
 import com.inno.modelview.model.Contributor;
 import com.inno.modelview.model.Popularity;
 import com.inno.modelview.service.IUserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserController {
+
+    final static Logger logger = LogManager.getLogger(UserController.class.getName());
+
     @Autowired
     IUserService iUserService;
 
@@ -24,6 +29,7 @@ public class UserController {
         try {
             iUserService.saveContributor(contributor);
         } catch (Exception ex) {
+            logger.error("saveContributor", ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -37,6 +43,7 @@ public class UserController {
         try {
             iUserService.savePopularity(popularity);
         } catch (Exception ex) {
+            logger.error("savePopularity", ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);

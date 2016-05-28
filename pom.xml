@@ -14,6 +14,7 @@
 		<commons.io.version>2.4</commons.io.version>
 		<jjwt.version>0.6.0</jjwt.version>
 		<jettyVersion>9.3.8.v20160314</jettyVersion>
+		<log4j2.version>2.5</log4j2.version>
 	</properties>
 
 	<dependencies>
@@ -114,6 +115,23 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
+		</dependency>
+
+		<!-- log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>${log4j2.version}</version>
 		</dependency>
 
 	</dependencies>
