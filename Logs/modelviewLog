@@ -1,0 +1,5 @@
+2016.05.28 at 14:14:45.725 CST ERROR com.inno.modelview.configuration.JWTFilter 47 doFilter - com.inno.modelview.exception.InvalidToken: Missing or invalid Authorization header.
+2016.05.28 at 14:21:54.544 CST ERROR com.inno.modelview.configuration.JWTFilter 67 doFilter - io.jsonwebtoken.MalformedJwtException: Unable to read JSON value: �W�&�r#�$�3#Sb'
+2016.05.28 at 14:35:24.277 CST INFO  com.inno.modelview.controller.TopicController 73 updateTopic - updateTopic
+2016.05.28 at 14:41:04.932 CST INFO  com.inno.modelview.controller.TopicController 74 updateTopic - read to updateTopic
+2016.05.28 at 14:42:51.811 CST INFO  com.inno.modelview.controller.TopicController 74 updateTopic - read to updateTopic:Topic{id=10, description='Test log for j22', name='Test_log_for', title='Test log for j', userCase='Test log for jTest log for j444', topicSteps=[], status=ACTIVE}
